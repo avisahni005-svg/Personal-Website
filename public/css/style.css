@@ -33,6 +33,9 @@
   --fw-text: 340;
   --fw-bold: 700;
   --lh-text: 1.06;
+  /* Rule spacing, used everywhere a rule appears: text under a rule sits close, text above it sits a little further away */
+  --rule-below: .85rem;
+  --rule-above: 1.4rem;
   --m: .85vw;              /* outer margin */
   --c1: 16.51vw;           /* left column: the content edge lines up with the first stem of the wordmark's "I" */
   --c2: 16.5vw;            /* second column */
@@ -130,8 +133,8 @@ h1, h2, h3, b, .role, .contact b, .contents nav a[aria-current], .entry .b, .pse
 }
 .profile { margin-top: 1rem; }
 .profile .txt p + p { text-indent: 1.1rem; }
-.contents { margin-top: 2.3vw; }
-.contents h3, .contents nav { border-top: 1px solid var(--ink); padding-top: .85rem; }
+.contents { margin-top: var(--rule-above); }
+.contents h3, .contents nav { border-top: 1px solid var(--ink); padding-top: var(--rule-below); }
 .contents nav a { display: block; }
 .contents nav a:hover { color: var(--logo); }
 .contents nav .gap { display: block; height: 1.06rem; }
@@ -190,8 +193,8 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 .trow .masonry { min-height: 4vw; }
 
 /* ------------------------------------------------------------------ project page */
-.ptitle { margin-bottom: 1.8vw; }
-.rule { border: 0; border-top: 1px solid var(--ink); margin: 0 0 1rem; width: 100%; }
+.ptitle { margin-bottom: var(--rule-above); }
+.rule { border: 0; border-top: 1px solid var(--ink); margin: 0 0 var(--rule-below); width: 100%; }
 .ptags { color: var(--mute); font-size: var(--fs-cap); margin-bottom: 1.2vw; }
 .psec {
   display: grid;
@@ -222,9 +225,8 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
   display: grid;
   grid-template-columns: var(--c1) calc(var(--c2) + var(--c3));
   border-top: 1px solid var(--ink);
-  padding: .85rem 0 1.6rem;
+  padding: var(--rule-below) 0 var(--rule-above);
 }
-.rrow.short { padding-bottom: 1rem; }
 .entry { margin-bottom: 1.35rem; }
 .entry:last-child { margin-bottom: 0; }
 .entry .d + .d { text-indent: 1.1rem; }
