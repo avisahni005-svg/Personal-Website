@@ -541,7 +541,9 @@ PG_KEYS = ["playground-dick-2-copy", "limbo", "untitled-19", "new-wave-poster-co
            "playground-img-8532-copy", "avi-25", "avi-26", "other-futures-portfolio-2", "avi-13",
            "scan-2700x3573", "scan-2406x2977", "aphonik-video", "posters-under-the-bridge-copy-2",
            "free-poster-set-mockup-2", "gravity-cardboard-boxes-mockup", "playground-img-0312", "playground-img-0495",
-           "playground-img-0711", "img-0757-5472x3648", "img-0294", "img-0309", "img-0582", "symbiosis-portfolio-image-5"]
+           "playground-img-0711", "img-0757-5472x3648", "img-0294", "img-0309", "img-0582", "symbiosis-portfolio-image-5",
+           "playground-font-poster", "playground-font-poster-final", "playground-p301-video",
+           "playground-p301-1", "playground-p301-2", "playground-p301-3", "playground-p301-4", "playground-p301-5", "playground-p301-6"]
 
 def playground_body():
     items = []

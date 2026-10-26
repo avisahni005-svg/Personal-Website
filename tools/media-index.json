@@ -6671,5 +6671,81 @@
 "w": 560,
 "h": 374
 }
+},
+"playground-font-poster": {
+"src": "media/playground/font-poster.webp",
+"w": 2213,
+"h": 3293
+},
+"playground-font-poster-final": {
+"src": "media/playground/font-poster-final.webp",
+"w": 2160,
+"h": 3240
+},
+"playground-p301-1": {
+"src": "media/playground/p301-1.webp",
+"w": 1800,
+"h": 2250,
+"m": {
+"src": "media/playground/p301-1-m.webp",
+"w": 1280,
+"h": 1600
+}
+},
+"playground-p301-2": {
+"src": "media/playground/p301-2.webp",
+"w": 1800,
+"h": 2250,
+"m": {
+"src": "media/playground/p301-2-m.webp",
+"w": 1280,
+"h": 1600
+}
+},
+"playground-p301-3": {
+"src": "media/playground/p301-3.webp",
+"w": 1800,
+"h": 2250,
+"m": {
+"src": "media/playground/p301-3-m.webp",
+"w": 1280,
+"h": 1600
+}
+},
+"playground-p301-4": {
+"src": "media/playground/p301-4.webp",
+"w": 1800,
+"h": 2250,
+"m": {
+"src": "media/playground/p301-4-m.webp",
+"w": 1280,
+"h": 1600
+}
+},
+"playground-p301-5": {
+"src": "media/playground/p301-5.webp",
+"w": 1800,
+"h": 2250,
+"m": {
+"src": "media/playground/p301-5-m.webp",
+"w": 1280,
+"h": 1600
+}
+},
+"playground-p301-6": {
+"src": "media/playground/p301-6.webp",
+"w": 1800,
+"h": 2250,
+"m": {
+"src": "media/playground/p301-6-m.webp",
+"w": 1280,
+"h": 1600
+}
+},
+"playground-p301-video": {
+"src": "media/playground/p301-video.mp4",
+"w": 1080,
+"h": 1350,
+"poster": "media/playground/p301-video-poster.webp"
 }
 }
