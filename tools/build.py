@@ -486,12 +486,11 @@ def trio(keys):
 
 def r2r_body():
     out, blocks = [], R2R[2:]       # skip the site-wide about blurb and the portrait
-    out.append(f'<section class="psec"><div class="ptext"><p>{E(blocks[0]["items"][1])}</p></div><div class="pmedia"></div></section>')
     it = blocks[0]["items"]
-    out.append(f'<section class="psec"><div class="ptext"><h3>{E('Color and Type')}</h3>'
-               f'<p>{E(it[3])}</p><p>{E(it[4])}</p></div><div class="pmedia"></div></section>')
     out.append(f'<div class="full">{media("avi-portfolio-video")}</div>')
-    pending = None
+    # the colour / type paragraphs sit beside the opening spreads, under a "Frontmatter" heading
+    front = f'<p>{E(it[3])}</p><p>{E(it[4])}</p>'
+    pending = ("Frontmatter", '<h3>Frontmatter</h3>', None)
     for b in blocks[2:]:
         if b["type"] == "text":
             t = b["items"]
@@ -506,11 +505,11 @@ def r2r_body():
         elif b["type"] == "gallery-slideshow":
             if pending:
                 lab, head, text = pending
-                body = f'<p>{E(text)}</p>' if text else ""
+                body = front if text is None else (f'<p>{E(text)}</p>' if text else "")
                 out.append(f'<section class="psec"><div class="ptext">{head}{body}</div><div class="pmedia">{slideshow(b["items"], lab)}</div></section>')
                 pending = None
             else:
-                out.append(f'<div class="full">{slideshow(b["items"], "Opening spreads")}</div>')
+                out.append(f'<div class="full">{slideshow(b["items"], "Spreads")}</div>')
         elif b["type"] == "gallery-justify":
             out.append(trio(b["items"]))
     return "\n".join(out)
