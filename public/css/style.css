@@ -52,7 +52,7 @@
 @media (min-width: 2600px) { :root { --fs-base: 25.74px; } }
 
 * { box-sizing: border-box; }
-html { font-size: var(--fs-base); -webkit-text-size-adjust: none; scroll-behavior: smooth; }
+html { font-size: var(--fs-base); -webkit-text-size-adjust: none; }
 body {
   margin: 0;
   background: #fff;
@@ -285,7 +285,6 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
 
