@@ -1,0 +1,420 @@
+#!/usr/bin/env python3
+"""Generates the static site (index/about/project pages) into public/.
+
+Run from anywhere:  python3 tools/build.py
+Media paths come from tools/media-index.json (name -> {src, w, h, poster}).
+"""
+import html, json, os, re
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+IDX = json.load(open(os.path.join(ROOT, "tools", "media-index.json")))
+E = html.escape
+
+NAV = [
+    ("stfc", "Street Football Club"),
+    ("rah", "Royal Albert Hall"),
+    ("hyperyouth", "Hyperyouth"),
+    ("right-to-resist", "Right to Resist"),
+    ("dekho", "Dekho Magar Pyaar Se"),
+    ("playground", "Playground :)"),
+]
+PROFILE = [
+    "Ever driven up a mountain on a one-lane road with traffic coming both ways, horns blaring, Punjabi music blasting, and a full-blown debate about dream cars in the back seat? That was just a normal day growing up in Dehradun, India. Nothing seemed to fit together, and somehow it all worked.",
+    "This chaos shaped my design practice today. I'm at my best when a project feels scattered, with too many moving pieces and no obvious thread. That's where I find my footing, pulling it all together into work that's layered and intricate but, in the end, feels clear and inevitable.",
+]
+
+MISSING = set()
+
+# --------------------------------------------------------------------------- media
+def m(key):
+    if key not in IDX:
+        MISSING.add(key)
+        return {"src": "", "poster": "", "w": 1, "h": 1}
+    return IDX[key]
+
+def media(key, cls="", alt="", eager=False, sizes=None):
+    d = m(key)
+    if d["src"].endswith(".mp4"):
+        return (f'<video class="{cls}" src="{d["src"]}" poster="{d["poster"]}" width="{d["w"]}" height="{d["h"]}" '
+                f'muted loop playsinline preload="none" data-autoplay></video>')
+    load = 'fetchpriority="high"' if eager else 'loading="lazy"'
+    return f'<img class="{cls}" src="{d["src"]}" width="{d["w"]}" height="{d["h"]}" alt="{E(alt)}" {load} decoding="async">'
+
+def ratio(key):
+    d = m(key)
+    return d["h"] / d["w"]
+
+def paras(texts):
+    return "".join(f"<p>{E(t)}</p>" for t in texts)
+
+# --------------------------------------------------------------------------- shell
+def shell(title, body, *, kind, current=None, desc="Avi Sahni — graphic designer working across branding, typography and creative coding."):
+    cls = f"{kind}"
+    if kind == "home":
+        top_link = '<a class="about-link" href="about.html">↗ About</a>'
+        first = '<a href="about.html">About</a>'
+    else:
+        top_link = ""
+        first = '<a href="index.html">Home</a>' if kind == "about" else '<a href="about.html">About</a>'
+    if kind == "about":
+        first = '<a href="index.html">Home</a>'
+    nav_items = "".join(
+        f'<a href="{s}.html"{" aria-current=page" if s == current else ""}>{E(n)}</a>' for s, n in NAV
+    )
+    profile = ""
+    if kind != "about":
+        profile = f'''
+    <div class="side-photo">{media("ffea1552-cc6b-43ba-bbca-f2bf9564a1c2", alt="Avi Sahni on set beside a film camera", eager=True)}</div>
+    <div class="side-row profile"><h3>Profile</h3><div class="txt">{paras(PROFILE)}</div></div>'''
+    return f'''<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{E(title)}</title>
+<meta name="description" content="{E(desc)}">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
+</head>
+<body class="{cls}">
+<header class="mast">
+  <img class="wordmark" src="img/wordmark.png" width="2000" height="515" alt="Avi Sahni">
+  <p class="role">Graphic Designer</p>
+  <p class="tagline">Branding, Typography &amp; Creative Coding</p>
+  <p class="contact"><b>(M)</b> <a href="mailto:hello@avisahni.design">hello@avisahni.design</a><br><b>(IG)</b> <a href="https://www.instagram.com/avisahni.design/" rel="noopener">avisahni.design</a></p>
+  {top_link}
+</header>
+<a class="wm-link" href="index.html" aria-label="Home"></a>
+<main>
+{body}
+<footer class="foot">
+  <a class="top" href="#" data-top>Top ↑</a>
+  <p>Everything is a reflection of the chaos around it :)</p>
+</footer>
+</main>
+<aside class="side">{profile}
+  <div class="side-row contents"><h3>Contents</h3><nav>{first}<span class="gap"></span>{nav_items}</nav></div>
+</aside>
+</body>
+</html>
+'''
+
+# --------------------------------------------------------------------------- home
+def masonry(items, cols=3):
+    """Place each item in the currently shortest column (matches Cargo's gallery)."""
+    heights = [0.0] * cols
+    columns = [[] for _ in range(cols)]
+    for it in items:
+        i = heights.index(min(heights))
+        columns[i].append(it)
+        heights[i] += ratio(it[1]) + 0.32  # caption allowance
+    return columns
+
+def thumb(cap, key, href):
+    return (f'<figure class="thumb"><a href="{href}">{media(key, alt=cap)}</a>'
+            f'<figcaption>{E(cap)}</figcaption></figure>')
+
+HOME = [
+    dict(slug="stfc", num="01", title="Street Football Club",
+         lead="As someone who has played soccer all my life, Street Football Club has always been an intriguing entity to me. A pick up football community aimed at bringing the speed and chaos of street football culture to America. This project was particularly challenging as the community spans across 13 cities, and it was important to let each cities individual personality shine.",
+         tags="Branding, Motion, Creative Direction",
+         hero="stfc-arena", crop=True,
+         copy=["The rebrand goal was to create a strong base system for STFC the organisation, with individual and unique identities for each city that convey speed and chaos.",
+               "There are 13 cities that STFC is in at the moment, and they expand every year. The goal for this part was to create a set of wordmarks for each city that fall in the same system. This resulted in every city having a unique identity with a wide color palette."],
+         thumbs=[("Stationary", "stfc-aviportfoliogx-8"), ("Stickers", "stfc-artboard-26-1"),
+                 ("Spatial Application_1", "stfc-arena"), ("Posters_1", "stfc-poster"),
+                 ("Business Cards", "stfc-aviportfoliogx-1"), ("Billboard", "austin-poster-stfc"),
+                 ("Spatial Application_2", "arena-stfc"), ("Spatial Application_3", "stfc-arena-3"),
+                 ("Merch", "artboard-26-from-stfc"), ("Motion", "motion-video"),
+                 ("Posters_2", "free-poster-mockup-4"), ("Marketing", "stfc-aviportfoliogx-2")]),
+    dict(slug="rah", num="02", title="Royal Albert Hall",
+         lead="The sheer range of events Royal Albert Hall does is what initially sparked my interest in this project. Today, with a capacity exceeding 5,000, the Hall presents more than 400 events annually, encompassing music, sport, community gatherings, and much more. The challenge was creating an identity that would leverage the 155 year heritage of the space, but also create a space receptive to modern and experimental ideas. In the end the goal was to create a nimble and flexible identity that caters to the varying interests of those in South Kensington and beyond. Creating a community that is larger than the brand itself.",
+         tags="Branding, Creative Direction",
+         hero="rah-aviportfoliogx",
+         copy=["The rebrand goal was to create a nimble and flexible identity that caters to the varying interests of those in South Kensington and beyond. Creating a community that is larger than the brand itself, being proud of their history while still allowing innovation, making them a sanctuary for the arts.",
+               "The principle for this identity system is based within the frame created in the stem of the H in RAH. The metaphor lies in the idea of being and creating the space for culture and knowledge to emerge. The serif type, rooted in elegance and royalty, adds gravitas to the system, but the flexibility of the frame creates a contrasting language of modernity and experimentation.",
+               "For special events, a modular font created using the frame within the logo can be used. This typeface allows for stretching and squashing. This frame can also be distorted in different ways for events that are less classical."],
+         thumbs=[("Spatial Application_1", "royal-albert-hall-nov-2012"), ("Poster_1", "rah-aviportfoliogx-1"),
+                 ("Stationary", "rah-1"), ("Banners", "royal-albert-hall"),
+                 ("Modular Font", "freight-video-8"), ("Brand Micro_1", "iphone-16-pro-mockups-front-view"),
+                 ("Brand Micro_2_Billboard_1", "rah-aviportfoliogx-uk23-lon-0403"), ("Brand Micro_2_Vinyl", "vinyl-template"),
+                 ("Brand Micro_2_Poster_1", "rah-aviportfoliogx-4"), ("Brand Micro_2_Tickets", "free-ticket-mockup-3"),
+                 ("Brand Micro_2_Poster_2", "rah-aviportfoliogx-3"), ("Brand Micro_2_Billboard_2", "outdoor-screen-mockup"),
+                 ("Brand Micro_2_Bus", "rah-aviportfoliogx-2")]),
+    dict(slug="hyperyouth", num="03", title="Hyperyouth",
+         lead="Initially starting as a way of learning generative design I took an album from rap duo Joey Valence & Brae and created a creative identity for its release. Hyperyouth is an introspective album at large but it still lets the duo's fun and goofy side shine at times.",
+         tags="Generative design, Branding",
+         hero="avi-portfolio",
+         copy=["Built in p5.js, using wave functions, randomness, and real-time audio-reactive input, the design translates the record's sample-heavy chaos and youthful energy into an evolving, interactive visual language."],
+         thumbs=[("Vinyl", "hyperyouth-portfolio"), ("Billboard", "hyperyouth-banner"),
+                 ("Stage", "hyperyouth-hystage"), ("Code Demo_1", "10-copy-4")]),
+    dict(slug="right-to-resist", num="04", title="Right to Resist",
+         lead="Revolution and rebellion are complex, from the French Revolution to the Bolsheviks, to January 6th in the USA. Where does one draw the line between right and wrong and who decides on a collective morality? \"Right to Resist\" explores this and more, covering the ethics and philosophies, as well as the function and process of revolutions and resistance. It is in no way an unbiased commentary, but instead a collection of thoughts meant to inspire change.",
+         tags="Publication",
+         hero="avi-portfolio-video",
+         copy=["Primarily featuring Baby Blue and Black, the book's color scheme creates a play of light emerging from the dark. The blue emulates a clear blue sky as a symbol of freedom.",
+               "Pressato is used for the headline type, which fills the page with large titles, creating visuals inspired by protest posters."],
+         thumbs=[("Opening", "right-to-resist"), ("Table of Contents", "right-to-resist-1"),
+                 ("Chapter Divider", "right-to-resist-20"), ("Endnotes", "right-to-resist-65"),
+                 ("Art and Design in Rebellion", "right-to-resist-80"), ("Chapter_1", "right-to-resist-18"),
+                 ("Chapter_4", "right-to-resist-2"), ("Pull Quotes", "right-to-resist-68"),
+                 ("Chapter_3", "right-to-resist-43")]),
+    dict(slug="dekho", num="05", title="Dekho Magar Pyaar Se",
+         lead="An homage to Indian trucks and truck drivers, as these trucks were my introduction to typography and visual design. The book delves into the creation and history of truck art, the lives of truck drivers, and the connection between the drivers and the art across India.",
+         tags="Publication, Posters, Motion",
+         hero="aviportfoliogx-img-1739",
+         copy=["During the design process, I aimed to emulate life on an Indian road, an organized chaos. The bold colors and typography are a clear homage to Indian trucks and the rich culture one experiences while traveling across India. Within the book's content, all non-English words are typeset in Hindi (India's national language), with pronunciations and definitions provided below and in the glossary at the end. This compels non-Hindi readers to take a detour while reading. This combined with the book's various layouts and complex grid, creates a reading experience akin to driving on an Indian road, where one is always alert and engaged."],
+         thumbs=[("Cover", "dekho-magr-pyaar-se-2"), ("Motion_1", "freight-cargo-video"),
+                 ("Posters", "free-billboard-mockup"), ("Table of Contents", "dekho-magr-pyaar-se-5"),
+                 ("Chapter_1", "215a0089"), ("Detail_1", "dekho-magr-pyaar-se-3"),
+                 ("Motion_2", "mp2-video"), ("Backmatter_1", "dekho-magr-pyaar-se-4"),
+                 ("Detail_2", "dekho-magr-pyaar-se-1"), ("Chapter_5", "215a0104-8192x5464"),
+                 ("Backmatter_2", "dekho-magr-pyaar-se")]),
+    dict(slug="playground", num="06", title="Playground :)",
+         lead="A collection of various projects, posters, graphic studies, photography and just having fun as a Designer and Artist.",
+         tags="Having fun...",
+         hero="playground-dick-2-copy",
+         copy=["Everything is a reflection of the chaos around it :)"],
+         thumbs=[("Limbo_Title Card", "limbo"), ("Inklingroom_Event Poster_1", "untitled-19"),
+                 ("Seven Samurai_Movie Poster", "new-wave-poster-copy-01"), ("Inklingroom_Event Poster_2", "playground-untitled-110-copy"),
+                 ("Symbiosis_Branding Posters", "symbiosis-portfolio-image-5"), ("Inklingroom_Brand Posters", "posters-copy-2-page-0001"),
+                 ("Other Futures_Event Poster", "avi-25"), ("Other Futures_Brochure_1", "avi-26"),
+                 ("Other Futures_Brochure_2", "other-futures-portfolio-2"), ("Other Futures_Brochure_3", "avi-13"),
+                 ("Divide & Rule_Letterpress Poster", "scan-2700x3573"), ("Rathole_Letterpress Poster", "scan-2406x2977"),
+                 ("Aphonik_Motion Poster", "aphonik-video"), ("Untitled_1", "posters-under-the-bridge-copy-2"),
+                 ("Untitled_2", "free-poster-set-mockup-2"), ("Untitled_3", "gravity-cardboard-boxes-mockup"),
+                 ("Untitled_4", "img-0757-5472x3648"), ("Untitled_5", "img-0294")]),
+]
+
+def home_section(p):
+    href = f'{p["slug"]}.html'
+    cols = masonry([(c, k) for c, k in p["thumbs"]])
+    colhtml = "".join(
+        '<div class="col">' + "".join(thumb(c, k, href) for c, k in col) + "</div>" for col in cols
+    )
+    return f'''
+<section class="proj{" cropped" if p.get("crop") else ""}" id="{p["slug"]}">
+  <div class="phead">
+    <span class="num">{p["num"]}</span>
+    <h2><a href="{href}">{E(p["title"])}</a></h2>
+    <p class="lead">{E(p["lead"])}</p>
+  </div>
+  <a class="hero" href="{href}" aria-label="{E(p["title"])}">{media(p["hero"], alt=p["title"])}</a>
+  <div class="trow">
+    <p class="tags">{E(p["tags"])}</p>
+    <div class="masonry">{colhtml}</div>
+    <div class="copy">{paras(p["copy"])}<a class="more" href="{href}">↗ See More</a></div>
+  </div>
+</section>'''
+
+def build_home():
+    body = '<div class="intro-gap"></div>\n' + "\n".join(home_section(p) for p in HOME)
+    return shell("Avi Sahni — Graphic Designer", body, kind="home")
+
+# --------------------------------------------------------------------------- about
+RESUME = [
+    ("Education", [
+        dict(date="Sept 2023 — Dec 2026", head="ArtCenter College of Design", line="Bachelor of Fine Arts in Graphic Design with Distinction"),
+        dict(date="Oct 2025", head="Pacific Edge Hotel Design Storm", line="A 3-day sprint with an interdisciplinary team of graphic, spatial, and industrial designers, where we developed a branding and spatial identity proposal for the Pacific Edge Hotel in Laguna Beach.", indent=True),
+        dict(date="June 2026", head="Typographics Conference 2026", line="Attendance sponsored by the Hoffmitz Milken Center for Typography"),
+        dict(date="Aug 2024", head="Adobe Creative Retreat", line="Attended, sponsored by the ArtCenter Graphic Design Department"),
+    ]),
+    ("Experience", [
+        dict(date="Oct 2025 — Dec 2026", head="Lead Designer", head2="Freelance: Iksh Optometry, Defence Cart, Trunk, and GSSK",
+             line="Developed visual identities and campaign systems for companies working across e-commerce, optometry, defence, consulting, and suppliments. Led teams of web, brand, and packaging designers to create brand identities that work across multiple mediums."),
+        dict(date="Oct 2024 — Dec 2025", head="Graphic Design Assistant", meta="Pasadena, California", head2="Hoffmitz Milken Center for Typography (HMCT)",
+             line="Designed publications, exhibitions, and graphics focused on typography, design history, and education, including ECAL: A Typographic Atlas, Primarium: A Case for Cursive, and Poski Projekt. Managed social media and newsletters to promote collections, workshops, and public programming."),
+        dict(date="May 2024 — Dec 2026", head="Teaching Assistant", meta="Pasadena, California", head2="ArtCenter College of Design",
+             lines=["Assisted Professor Brad Bartlett with his Advanced Transmedia Studio course. Led critiques of project ideas, typography layouts, and design systems. Helped students develop research driven projects culminating in a visually compelling, narrative-driven publication.",
+                    "Assisted Professors Petrula Vrontikis and Sheharazad Fleming with their Grad Thesis 1: Portfolio Lab course. Provided critiques of student projects and web design. Helped students develop visually strong branding systems and strategies for their own identity.",
+                    "Assisted Professor Pamela Olecki with her Communication Design 1 and 2 courses through project critiques, conceptual development, and technical guidance across branding, editorial, and exhibition-based assignments."]),
+        dict(date="Aug 2026", head="Assistant Director", meta="Pasadena, California", head2="Levi Libre Freestyler",
+             line="Managed all logistics, scheduling, and on-set operations of the production. Directed background actors, handled crew communication, and ensured safety regulations were met. The project received the following awards: Gold and Best of Show at American Advertising Federation Awards, Silver at People's Telly Awards, and Bronze at Telly Awards."),
+        dict(date="Aug 2024 — Dec 2025", head="Teaching and Shop Assistant", meta="Pasadena, California", head2="Archetype Press",
+             line="Supported artists in residence, workshops, and production at ArtCenter's letterpress studio, assisting with printmaking instruction, fabrication, and studio operations. Guided students through letterpress, balancing conceptual experimentation with technical production constraints. Collaborated with Amos Paul Kennedy, Jr. and Jessica Spring during their artist residencies, contributing to experimental workshops, and the production of typographic poster works including Civil Disobedience and When We Print, We Win."),
+    ]),
+    ("Recognition", [
+        dict(date="Sept 2026", head="Finalist at Communication Arts 2027 Typography Competition", ital=["Right to Resist (Book)"]),
+        dict(date="Dec 2023 — Dec 2026", head="ArtCenter Provost's List"),
+        dict(date="Nov 2025", head="Awarded Outstanding Student Designer by AIGA Los Angeles"),
+        dict(date="May 2024 — Ongoing", head="HMCT Gallery", ital=["Warnock Type Specimen (Poster)"]),
+        dict(date="May 2024 — December 2026", head="ArtCenter Student Gallery",
+             ital=["STFC Branding (Poster)", "Royal Albert Hall Branding (Posters)", "Dekho Magar Pyaar Se (Book)",
+                   "Butterfly Boulder (Packaging)", "Other Futures (Poster)", "Paneer Makhni (Motion)"]),
+        dict(date="November 2024", head="Featured by Cheryl D. Miller at AICAD Symposium 2024", ital=["Dekho Magar Pyaar Se (Book)"]),
+    ]),
+    ("ArtCenter Scholarships", [
+        dict(date="Sept — Dec 2026", head="Duane and Betty Bohnstedt Endowed Scholarship"),
+        dict(date="Sept 2023 — Dec 2026", head="ArtCenter Merit Scholarship"),
+        dict(date="Jan — Aug 2026", head="Samsung Endowed Scholarship"),
+        dict(date="May — Aug 2024", head="Kanter Scholarship for Excellence in Typography and Book Design"),
+    ]),
+]
+SKILLS = [
+    ("Strong working knowledge of", "InDesign, Photoshop, Illustrator, After Effects, MadMapper, Figma, Lightroom, Premiere Pro, and P5js"),
+    ("Familiar with", "Framer, Glyphs 4, SolidWorks, Blender, KeyShot, and TouchOSC"),
+    ("Skills", "Brand Identity, Typography, Editorial Design, Motion Design, Print Production, Spatial Graphics, Creative Coding, Photography, and Film Production"),
+]
+ABOUT_PHOTOS = ["avi-sahni-portfolio-image", "avi-sahni-portfolio-image-4", "avi-sahni-portfolio-image-9",
+                "avi-sahni-portfolio-image-2", "avi-sahni-portfolio-image-1", "avi-sahni-portfolio-image-3",
+                "avi-sahni-portfolio-image-10", "avi-sahni-portfolio-dsc-0186"]
+ABOUT_BLURB = ("I like making things :) A journey through fine art, photography, film, and more has led me to graphic design. "
+               "For me, it's a platform to express myself as an artist while continuing to bring others' visions to life. "
+               "My design philosophy is total immersion in the project, becoming one with the history, culture, and context "
+               "behind it through meticulous research and exploration.")
+
+def entry(e):
+    h = f'<div class="entry{" indent" if e.get("indent") else ""}"><p class="date">{E(e["date"])}</p>'
+    h += f'<p class="b">{E(e["head"])}</p>'
+    if e.get("meta"): h += f'<p>{E(e["meta"])}</p>'
+    if e.get("head2"): h += f'<p class="b">{E(e["head2"])}</p>'
+    for ln in ([e["line"]] if e.get("line") else []) + e.get("lines", []):
+        h += f'<p class="d">{E(ln)}</p>'
+    for it in e.get("ital", []):
+        h += f'<p class="i">{E(it)}</p>'
+    return h + "</div>"
+
+def build_about():
+    cols = masonry([("", k) for k in ABOUT_PHOTOS])
+    photos = "".join('<div class="col">' + "".join(thumb(c, k, "#") .replace('<a href="#">', '<span>').replace("</a>", "</span>") for c, k in col) + "</div>" for col in cols)
+    rows = ""
+    for label, entries in RESUME:
+        rows += f'<section class="rrow"><h3>{E(label)}</h3><div>{"".join(entry(e) for e in entries)}</div></section>'
+    for label, text in SKILLS:
+        rows += f'<section class="rrow short"><h3>{E(label)}</h3><div><p class="d">{E(text)}</p></div></section>'
+    body = f'''
+<div class="title-gap"></div>
+<div class="phead about-head">
+  <h1 class="big">Hello :)</h1>
+  <h3 class="label">Nice to meet ya!</h3>
+  <p class="lead">{E(PROFILE[0])}<br><span class="ind">{E(PROFILE[1])}</span></p>
+</div>
+<div class="wide">{media("ffea1552-cc6b-43ba-bbca-f2bf9564a1c2", alt="Avi Sahni on set beside a film camera")}</div>
+<div class="trow about-photos"><p class="tags"></p><div class="masonry">{photos}</div><div class="copy"><p>{E(ABOUT_BLURB)}</p></div></div>
+{rows}'''
+    return shell("About — Avi Sahni", body, kind="about")
+
+# --------------------------------------------------------------------------- project pages
+def pair_or_full(keys):
+    """Lay out a run of media: landscape -> full width, portraits/squares pair up."""
+    out, buf = [], []
+    def flush():
+        while buf:
+            if len(buf) >= 2:
+                a, b = buf.pop(0), buf.pop(0)
+                out.append(f'<div class="duo">{media(a)}{media(b)}</div>')
+            else:
+                a = buf.pop(0)
+                out.append(f'<div class="half">{media(a)}</div>')
+    for k in keys:
+        d = m(k)
+        if d["w"] / d["h"] >= 1.15:
+            flush()
+            out.append(f'<div class="full">{media(k)}</div>')
+        else:
+            buf.append(k)
+    flush()
+    return "\n".join(out)
+
+def sec(label, text, inner):
+    t = ""
+    if label: t += f'<h3>{E(label)}</h3>'
+    if text: t += f'<p>{E(text)}</p>'
+    return f'<section class="psec"><div class="ptext">{t}</div><div class="pmedia">{inner}</div></section>'
+
+def title_block(title, tags):
+    return f'<div class="title-gap"></div><h1 class="big ptitle">{E(title)}</h1><hr class="rule"><p class="ptags">{E(tags)}</p>'
+
+PAGES = {}
+
+# Street Football Club — follows the recording
+PAGES["stfc"] = dict(title="Street Football Club", tags="Branding, Motion, Creative Direction", body=lambda: "\n".join([
+    sec("Logo Development",
+        "The exploration for the main logo was divided in 2 rough categories: Badges and Typographic. The idea was to create a visual that captures the speed and chaos of the brand but also harkens back to football and street culture.",
+        f'<div class="duo">{media("typographic")}{media("badges")}</div>'),
+    f'<div class="full">{media("aug-27-screenshot-from-aviportfoliogx")}</div>',
+    sec("Core Branding",
+        "The utilitarian look is for the base that shall create contrast between the identities for the cities. The green and grey are inspired by asphalt and moss as seen on the streets.",
+        f'<div class="duo">{media("stfc-aviportfoliogx-1")}{media("stfc-free-poster-mockup-4")}</div>'),
+    f'<div class="full">{media("stfc-305-copy-8")}</div>',
+    sec("City Branding",
+        "Each city got a unique identity, with typography and colors that show the vibrance and chaos of the football scene in each city.",
+        f'<div class="duo">{media("cities")}{media("motion-video")}</div>'),
+    pair_or_full(["stfc-3artboard-26", "stfc-insta", "stfc-arena", "stfc-poster", "stfc-austin-poster",
+                  "stfc-arena-2", "stfc-3artboard-26-copy", "stfc-arena-3", "stfc-img-2962"]),
+]))
+
+def gallery_page(slug, keys, extra=""):
+    return lambda: "\n".join([extra, pair_or_full(keys)])
+
+def lead_sec(slug):
+    p = next(x for x in HOME if x["slug"] == slug)
+    return sec("", p["lead"], "")
+
+def copy_sec(slug, label=""):
+    p = next(x for x in HOME if x["slug"] == slug)
+    return f'<section class="psec"><div class="ptext">{paras(p["copy"])}</div><div class="pmedia"></div></section>'
+
+PAGES["rah"] = dict(title="Royal Albert Hall", tags="Branding, Creative Direction", body=lambda: "\n".join([
+    lead_sec("rah"), pair_or_full(["rah-aviportfoliogx", "rah-uk23lon0361-copy-2", "rah-1", "royal-albert-hall-nov-2012", "rah-royal-albert-hall",
+                                   "rah-uk23lon0175-copy", "rah-uk23lon0177-copy", "rah-uk23lon0554-copy", "rah-uk23lon0403-copy", "rah-uk24lon278-copy",
+                                   "rah-outdoor-screen-mockup-copy", "rah-vinyl-template-c-copy", "rah-free-ticket-mockup-3-copy"]),
+    copy_sec("rah"),
+    pair_or_full(["freight-video-8", "rah-3artboard-1", "rah-scene-with-iphone-16-pro-mockups-v1-front-vew-copy",
+                  "rah-screenshot-2025-08-17-at-1-27-16am", "rah-screenshot-2025-08-17-at-1-27-23am", "rah-screenshot-2025-08-17-at-1-27-30am",
+                  "rah-screenshot-2025-08-17-at-1-28-06am-copy", "rah-screenshot-2025-08-17-at-1-28-36am-copy",
+                  "rah-screenshot-2025-08-17-at-1-28-42am-copy", "rah-screenshot-2025-08-17-at-1-29-31am-copy",
+                  "rah-brand-poster-expo-26", "rah-brand-poster-expo-2", "rah-brand-poster-expo-25", "rah-brand-poster-expo-22",
+                  "rah-brand-poster-5", "rah-brand-poster-4", "rah-brand-poster-3", "rah-rah-brand-poster"]),
+]))
+
+PAGES["hyperyouth"] = dict(title="Hyperyouth", tags="Generative design, Branding", body=lambda: "\n".join([
+    lead_sec("hyperyouth"), pair_or_full(["avi-portfolio", "hyperyouth-hystage", "hyperyouth-hy-banner", "hyperyouth-vnhy", "10-copy-4"]),
+    copy_sec("hyperyouth"),
+]))
+
+R2R_GAL = [k for k in IDX["_order"]["right-to-resist"] if k.startswith("r2r-")]
+PAGES["right-to-resist"] = dict(title="Right to Resist", tags="Publication", body=lambda: "\n".join([
+    lead_sec("right-to-resist"), f'<div class="full">{media("avi-portfolio-video")}</div>', copy_sec("right-to-resist"),
+    pair_or_full(R2R_GAL),
+]))
+
+PAGES["dekho"] = dict(title="Dekho Magar Pyaar Se", tags="Publication, Posters, Motion", body=lambda: "\n".join([
+    lead_sec("dekho"), pair_or_full(["aviportfoliogx-img-1739", "dekho-215a0010", "dekho-215a0012", "dekho-215a0020", "dekho-215a0024", "dekho-215a0039",
+                                     "dekho-215a0102", "dekho-215a0106", "dekho-215a0109", "dekho-215a0112", "dekho-215a0120", "dekho-215a0124"]),
+    copy_sec("dekho"),
+    pair_or_full(["dekho-10-copy-2", "dekho-free-billboard-mockup-1", "freight-cargo-video", "mp2-video", "dekho-mp3-video",
+                  "dekho-jan-21-screenshot-from-avi-sahni", "dekho-jan-21-screenshot-from-avi-sahni-1", "dekho-jan-21-screenshot-from-avi-sahni-2",
+                  "dekho-dekho-magar-pyaar-se", "dekho-dekho-magar-pyaar-se-1", "dekho-dekho-magar-pyaar-se-portfolio", "dekho-dekho-magar-pyaar-se-portfolio-1",
+                  "dekho-mp1", "dekho-mp2", "dekho-mp3"]),
+]))
+
+PAGES["playground"] = dict(title="Playground :)", tags="Having fun...", body=lambda: "\n".join([
+    lead_sec("playground"), pair_or_full(["playground-dick-2-copy", "limbo", "untitled-19", "new-wave-poster-copy-01", "playground-untitled-110-copy",
+                                         "playground-insane-me-poster", "playground-posters-copy-page-0001-copy", "posters-copy-2-page-0001",
+                                         "playground-img-8532-copy", "avi-25", "avi-26", "other-futures-portfolio-2", "avi-13",
+                                         "scan-2700x3573", "scan-2406x2977", "aphonik-video", "posters-under-the-bridge-copy-2",
+                                         "free-poster-set-mockup-2", "gravity-cardboard-boxes-mockup", "playground-img-0312", "playground-img-0495",
+                                         "playground-img-0711", "img-0757-5472x3648", "img-0294", "img-0309", "img-0582", "symbiosis-portfolio-image-5"]),
+]))
+
+def build_project(slug):
+    p = PAGES[slug]
+    body = title_block(p["title"], p["tags"]) + "\n" + p["body"]()
+    return shell(f'{p["title"]} — Avi Sahni', body, kind="project", current=slug)
+
+def main():
+    out = {"index.html": build_home(), "about.html": build_about()}
+    for slug in PAGES:
+        out[f"{slug}.html"] = build_project(slug)
+    for name, text in out.items():
+        open(os.path.join(ROOT, "public", name), "w", encoding="utf8").write(text)
+    print("wrote", ", ".join(out))
+    if MISSING:
+        raise SystemExit("missing media keys: " + ", ".join(sorted(MISSING)))
+
+if __name__ == "__main__":
+    main()
