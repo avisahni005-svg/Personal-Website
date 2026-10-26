@@ -522,7 +522,7 @@ DEKHO_SLIDES = ["dekho-215a0010", "dekho-215a0012", "dekho-215a0020", "dekho-215
 
 PAGES["dekho"] = dict(title="Dekho Magar Pyaar Se", tags="Publication, Posters, Motion", body=lambda: "\n".join([
     # process photos first, then the rows of the original Cargo page
-    sec("", next(x for x in HOME if x["slug"] == "dekho")["lead"],
+    sec("", next(x for x in HOME if x["slug"] == "dekho")["copy"][0],
         full("dekho-jan-21-screenshot-from-avi-sahni")),
     duo(["dekho-jan-21-screenshot-from-avi-sahni-1", "dekho-jan-21-screenshot-from-avi-sahni-2"]),
     full("aviportfoliogx-img-1739"),
@@ -530,7 +530,7 @@ PAGES["dekho"] = dict(title="Dekho Magar Pyaar Se", tags="Publication, Posters, 
     full("dekho-10-copy-2"),
     duo(["dekho-215a0124", "dekho-215a0039"]),
     f'<div class="full">{slideshow(DEKHO_SLIDES, "Dekho Magar Pyaar Se spreads")}</div>',
-    sec("", next(x for x in HOME if x["slug"] == "dekho")["copy"][0], full("dekho-free-billboard-mockup-1")),
+    full("dekho-free-billboard-mockup-1"),
     duo(["mp2-video", "freight-cargo-video", "dekho-mp3-video"]),
 ]))
 
