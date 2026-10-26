@@ -360,3 +360,6 @@ hr.rule + .psec { border-top: 0; margin-top: 0; padding-top: 0; }
 
 /* transparent PNGs/WebPs sit straight on the white page */
 img.alpha { background: none !important; }
+
+/* a plain rule between two groups of media: space above it, the next image close under it (same convention as every rule) */
+hr.sep { border: 0; border-top: 1px solid var(--ink); width: 100%; margin: var(--rule-above) 0 var(--rule-below); }
