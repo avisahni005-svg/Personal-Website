@@ -25,7 +25,7 @@
      subhead   same size as text, bold
      caption   20% smaller than text
      heading   large display size (10% smaller than the first version), bold */
-  --fs-base: 13.4px;
+  --fs-base: 12.06px;
   --fs-text: 1rem;
   --fs-sub: 1rem;
   --fs-cap: .8rem;
@@ -43,10 +43,10 @@
 }
 
 /* Base text size follows the window in coarse steps, so Cmd +/- still scales it proportionally */
-@media (max-width: 999px)  { :root { --fs-base: 12.5px; } }
-@media (min-width: 1700px) { :root { --fs-base: 17px; } }
-@media (min-width: 2100px) { :root { --fs-base: 21px; } }
-@media (min-width: 2600px) { :root { --fs-base: 26px; } }
+@media (max-width: 999px)  { :root { --fs-base: 11.25px; } }
+@media (min-width: 1700px) { :root { --fs-base: 15.3px; } }
+@media (min-width: 2100px) { :root { --fs-base: 18.9px; } }
+@media (min-width: 2600px) { :root { --fs-base: 23.4px; } }
 
 * { box-sizing: border-box; }
 html { font-size: var(--fs-base); -webkit-text-size-adjust: none; scroll-behavior: smooth; }
@@ -240,7 +240,7 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); pa
 
 /* ------------------------------------------------------------------ narrow screens */
 @media (max-width: 720px) {
-  :root { --fs-base: 14px; --fs-head: 3.4rem; --m: 12px; }
+  :root { --fs-base: 12.6px; --fs-head: 3.4rem; --m: 12px; }
   .mast { position: absolute; height: auto; }
   .wordmark { position: static; display: block; margin: 12px var(--m) 0; width: calc(100vw - 24px); }
   .home .wordmark { width: calc(100vw - 24px); }
