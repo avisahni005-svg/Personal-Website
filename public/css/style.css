@@ -334,8 +334,10 @@ a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 /* the two STFC logo animations are black on white: show them white on black */
 video.invert, img.invert { filter: invert(1); background: #fff; }
 
-/* a section that starts with a rule (text sits close under it, the media above sits a little further away) */
-.psec.ruled { border-top: 1px solid var(--ink); margin-top: var(--rule-above); padding-top: var(--rule-below); }
+/* every text section on the project pages starts with a rule: text close under it, the media above a little further away.
+   The first section sits right under the title rule, so it has none of its own. */
+.psec { border-top: 1px solid var(--ink); margin-top: var(--rule-above); padding-top: var(--rule-below); }
+hr.rule + .psec { border-top: 0; margin-top: 0; padding-top: 0; }
 
 /* Hyperyouth: videos autoplay muted; a small speaker button in the bottom-left turns sound on */
 .vwrap { position: relative; display: block; min-width: 0; }
