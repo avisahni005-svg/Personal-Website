@@ -518,14 +518,20 @@ def r2r_body():
 
 PAGES["right-to-resist"] = dict(title="Right to Resist", tags="Publication", body=r2r_body)
 
+DEKHO_SLIDES = ["dekho-215a0010", "dekho-215a0012", "dekho-215a0020", "dekho-215a0024", "dekho-215a0028", "dekho-215a0030", "dekho-215a0033", "dekho-215a0035", "dekho-215a0038", "dekho-215a0042", "dekho-215a0045", "dekho-215a0047", "dekho-215a0055", "dekho-215a0061", "dekho-215a0063", "dekho-215a0065", "dekho-215a0067", "dekho-215a0069", "dekho-215a0073", "dekho-215a0077", "dekho-215a0079", "dekho-215a0081", "dekho-215a0085", "dekho-215a0087", "dekho-215a0089", "dekho-215a0090", "dekho-215a0093", "dekho-215a0096", "dekho-215a0099", "dekho-215a0104", "dekho-215a0106", "dekho-215a0109", "dekho-215a0112"]
+
 PAGES["dekho"] = dict(title="Dekho Magar Pyaar Se", tags="Publication, Posters, Motion", body=lambda: "\n".join([
-    lead_sec("dekho"), pair_or_full(["aviportfoliogx-img-1739", "dekho-215a0010", "dekho-215a0012", "dekho-215a0020", "dekho-215a0024", "dekho-215a0039",
-                                     "dekho-215a0102", "dekho-215a0106", "dekho-215a0109", "dekho-215a0112", "dekho-215a0120", "dekho-215a0124"]),
-    copy_sec("dekho"),
-    pair_or_full(["dekho-10-copy-2", "dekho-free-billboard-mockup-1", "freight-cargo-video", "mp2-video", "dekho-mp3-video",
-                  "dekho-jan-21-screenshot-from-avi-sahni", "dekho-jan-21-screenshot-from-avi-sahni-1", "dekho-jan-21-screenshot-from-avi-sahni-2",
-                  "dekho-dekho-magar-pyaar-se", "dekho-dekho-magar-pyaar-se-1", "dekho-dekho-magar-pyaar-se-portfolio", "dekho-dekho-magar-pyaar-se-portfolio-1",
-                  "dekho-mp1", "dekho-mp2", "dekho-mp3"]),
+    # process photos first, then the rows of the original Cargo page
+    sec("", next(x for x in HOME if x["slug"] == "dekho")["lead"],
+        duo(["dekho-dekho-magar-pyaar-se", "dekho-jan-21-screenshot-from-avi-sahni"])),
+    duo(["dekho-jan-21-screenshot-from-avi-sahni-1", "dekho-jan-21-screenshot-from-avi-sahni-2"]),
+    full("aviportfoliogx-img-1739"),
+    duo(["dekho-215a0102", "dekho-215a0120"]),
+    full("dekho-10-copy-2"),
+    duo(["dekho-215a0124", "dekho-215a0039"]),
+    f'<div class="full">{slideshow(DEKHO_SLIDES, "Dekho Magar Pyaar Se spreads")}</div>',
+    sec("", next(x for x in HOME if x["slug"] == "dekho")["copy"][0], full("dekho-free-billboard-mockup-1")),
+    duo(["mp2-video", "freight-cargo-video", "dekho-mp3-video"]),
 ]))
 
 PAGES["playground"] = dict(title="Playground :)", tags="Having fun...", body=lambda: "\n".join([
