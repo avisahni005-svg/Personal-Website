@@ -226,7 +226,7 @@ def home_section(p):
     return f'''
 <section class="proj{" cropped" if p.get("crop") else ""}" id="{p["slug"]}">
   <div class="phead">
-    <span class="num">{p["num"]}</span>
+    <a class="num" href="{href}" aria-label="{E(p["title"])}">{p["num"]}</a>
     <h2><a href="{href}">{E(p["title"])}</a></h2>
     <p class="lead">{E(p["lead"])}</p>
   </div>

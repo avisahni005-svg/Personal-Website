@@ -62,7 +62,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 img, video { display: block; width: 100%; height: auto; }
-a { color: inherit; text-decoration: none; }
+a { color: inherit; text-decoration: none; transition: color .15s; }
 p { margin: 0; }
 h1, h2, h3 { margin: 0; }
 /* subheads */
@@ -133,7 +133,7 @@ h1, h2, h3, b, .role, .contact b, .contents nav a[aria-current], .entry .b, .pse
 .contents { margin-top: 2.3vw; }
 .contents h3, .contents nav { border-top: 1px solid var(--ink); padding-top: .85rem; }
 .contents nav a { display: block; }
-.contents nav a:hover { opacity: .55; }
+.contents nav a:hover { color: var(--yellow); }
 .contents nav .gap { display: block; height: 1.06rem; }
 .about .side { padding-top: 1.9vw; }
 .about .contents { margin-top: 0; }
@@ -178,8 +178,6 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 .thumb { margin: 0; }
 .thumb figcaption { color: var(--mute); font-size: var(--fs-cap); margin-top: .35rem; font-weight: var(--fw-text); }
 .thumb a, .thumb span { display: block; }
-.thumb img, .thumb video { transition: opacity .25s; }
-.thumb a:hover img, .thumb a:hover video { opacity: .78; }
 .copy {
   position: absolute;
   margin-left: calc(var(--c1) + 3 * 10vw + 3 * var(--gap));
@@ -188,7 +186,7 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 .trow { position: relative; }
 .copy p + p { text-indent: 1.1rem; }
 .copy .more { display: inline-block; margin-top: 1.1rem; }
-.copy .more:hover, .about-link:hover { opacity: .55; }
+.copy .more:hover, .phead h2 a:hover, a.num:hover { color: var(--yellow); }
 .trow .masonry { min-height: 4vw; }
 
 /* ------------------------------------------------------------------ project page */
@@ -243,7 +241,7 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 }
 .foot .top { grid-column: 1; }
 .foot p { grid-column: 2 / 4; }
-.foot a:hover { color: var(--ink); }
+.foot a:hover { color: var(--yellow); }
 
 /* ------------------------------------------------------------------ narrow screens */
 @media (max-width: 720px) {
@@ -318,3 +316,24 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 
 /* reserve space and show a quiet tile while an image arrives */
 .thumb img, .thumb video, .hero img, .hero video, .full img, .full video, .duo img, .duo video, .half img, .trio img, .wide img { background: #f1f1f1; }
+
+/* ------------------------------------------------------------------ links: hover and active states */
+/* Yellow text. Inside the blended masthead the colour is the logo blue, which the exclusion blend turns into #ffdd00. */
+.mast a:hover { color: var(--logo); }
+.contents nav a[aria-current],
+.contents nav a[aria-current]:hover { color: var(--yellow); }
+
+/* Images that are links get a soft yellow tint on hover */
+.thumb a, .hero { position: relative; }
+.thumb a::after, .hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--yellow);
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity .2s ease;
+  pointer-events: none;
+}
+.thumb a:hover::after, .hero:hover::after, .thumb a:focus-visible::after, .hero:focus-visible::after { opacity: .5; }
+a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
