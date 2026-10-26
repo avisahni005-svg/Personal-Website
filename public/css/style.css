@@ -211,7 +211,7 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 .duo { display: flex; gap: var(--gap); align-items: flex-start; }
 .duo > img, .duo > video { min-width: 0; width: auto; }
 .half { width: calc(50% - var(--gap) / 2); }
-.pmedia .duo { margin-bottom: 0; }
+.pmedia .duo, .pmedia .full { margin-bottom: 0; }
 
 /* ------------------------------------------------------------------ about */
 .about-head { grid-template-columns: var(--c1) var(--c2) var(--c3); margin-bottom: 1.1vw; }
@@ -335,4 +335,4 @@ a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 video.invert, img.invert { filter: invert(1); background: #fff; }
 
 /* a section that starts with a rule (text sits close under it, the media above sits a little further away) */
-.psec.ruled { border-top: 1px solid var(--ink); margin-top: calc(var(--rule-above) + var(--gap)); padding-top: var(--rule-below); }
+.psec.ruled { border-top: 1px solid var(--ink); margin-top: var(--rule-above); padding-top: var(--rule-below); }

@@ -6220,5 +6220,10 @@
 "w": 1280,
 "h": 720,
 "poster": "media/video/stfc-laptop-large-poster.webp"
+},
+"stfc-poster-wall": {
+"src": "media/stfc/poster-wall.webp",
+"w": 1800,
+"h": 1991
 }
 }

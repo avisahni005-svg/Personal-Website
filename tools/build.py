@@ -401,7 +401,7 @@ PAGES["stfc"] = dict(title="Street Football Club", tags="Branding, Motion, Creat
     f'<div class="full">{media("stfc-3artboard-26")}</div>',
     duo(["motion-video", "stfc-arena-2"]),
     pair_or_full(["stfc-insta", "stfc-3artboard-26-copy", "stfc-arena", "stfc-poster",
-                  "stfc-austin-poster", "stfc-arena-3", "stfc-img-2962"]),
+                  "stfc-austin-poster", "stfc-arena-3", "stfc-poster-wall"]),
 ]))
 
 def gallery_page(slug, keys, extra=""):
