@@ -423,9 +423,9 @@ def copy_sec(slug, label=""):
     return f'<section class="psec"><div class="ptext">{paras(p["copy"])}</div><div class="pmedia"></div></section>'
 
 PAGES["rah"] = dict(title="Royal Albert Hall", tags="Branding, Creative Direction", body=lambda: "\n".join([
-    f'<div class="full">{media("rah-logos-black", alt="Royal Albert Hall logo explorations")}</div>',
     sec("", next(x for x in HOME if x["slug"] == "rah")["copy"][0],
-        f'<div class="full">{media("rah-aviportfoliogx")}</div>'),
+        f'<div class="full">{media("rah-logos-black", alt="Royal Albert Hall logo explorations")}</div>'),
+    f'<div class="full">{media("rah-aviportfoliogx")}</div>',
     pair_or_full(["rah-1", "royal-albert-hall-nov-2012", "rah-royal-albert-hall",
                   "rah-uk23lon0175-copy", "rah-uk23lon0177-copy", "rah-uk23lon0554-copy", "rah-uk23lon0403-copy", "rah-uk24lon278-copy",
                   "rah-outdoor-screen-mockup-copy", "rah-vinyl-template-c-copy", "rah-free-ticket-mockup-3-copy"]),

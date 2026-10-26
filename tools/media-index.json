@@ -6254,16 +6254,16 @@
 "rah-logos-black": {
 "src": "media/rah/logos-black.webp",
 "w": 1800,
-"h": 1032,
+"h": 1003,
 "m": {
 "src": "media/rah/logos-black-m.webp",
 "w": 1280,
-"h": 734
+"h": 714
 },
 "t": {
 "src": "media/rah/logos-black-t.webp",
 "w": 560,
-"h": 321
+"h": 312
 }
 }
 }
