@@ -452,7 +452,7 @@ def slideshow(keys, label):
             f'<button type="button" data-next aria-label="Next">→</button></span></div></div>')
 
 def trio(keys):
-    return '<div class="trio">' + "".join(media(k) for k in keys) + "</div>"
+    return duo(keys)
 
 def r2r_body():
     out, blocks = [], R2R[2:]       # skip the site-wide about blurb and the portrait
