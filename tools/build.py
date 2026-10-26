@@ -358,9 +358,9 @@ def pair_or_full(keys):
             if len(buf) >= 2:
                 a, b = buf.pop(0), buf.pop(0)
                 out.append(duo([a, b]))
-            else:
+            else:                      # a lone image takes the whole column
                 a = buf.pop(0)
-                out.append(f'<div class="half">{media(a)}</div>')
+                out.append(f'<div class="full">{media(a)}</div>')
     for k in keys:
         d = m(k)
         if d["w"] / d["h"] >= 1.15:
@@ -371,11 +371,12 @@ def pair_or_full(keys):
     flush()
     return "\n".join(out)
 
-def sec(label, text, inner):
+def sec(label, text, inner, ruled=False):
     t = ""
     if label: t += f'<h3>{E(label)}</h3>'
     if text: t += f'<p>{E(text)}</p>'
-    return f'<section class="psec"><div class="ptext">{t}</div><div class="pmedia">{inner}</div></section>'
+    cls = "psec ruled" if ruled else "psec"
+    return f'<section class="{cls}"><div class="ptext">{t}</div><div class="pmedia">{inner}</div></section>'
 
 def title_block(title, tags):
     return f'<div class="title-gap"></div><h1 class="big ptitle">{E(title)}</h1><hr class="rule">'
@@ -394,11 +395,13 @@ PAGES["stfc"] = dict(title="Street Football Club", tags="Branding, Motion, Creat
     duo(["stfc-aviportfoliogx-1", "stfc-free-poster-mockup-4"]),
     f'<div class="full">{media("stfc-305-copy-8")}</div>',
     f'<div class="full">{media("stfc-laptop-large")}</div>',
-    sec("City Branding",
+    sec("",
         "Each city got a unique identity, with typography and colors that show the vibrance and chaos of the football scene in each city.",
-        duo(["cities", "motion-video"])),
-    pair_or_full(["stfc-3artboard-26", "stfc-insta", "stfc-arena", "stfc-poster", "stfc-austin-poster",
-                  "stfc-arena-2", "stfc-3artboard-26-copy", "stfc-arena-3", "stfc-img-2962"]),
+        f'<div class="full">{media("cities")}</div>', ruled=True),
+    f'<div class="full">{media("stfc-3artboard-26")}</div>',
+    duo(["motion-video", "stfc-arena-2"]),
+    pair_or_full(["stfc-insta", "stfc-3artboard-26-copy", "stfc-arena", "stfc-poster",
+                  "stfc-austin-poster", "stfc-arena-3", "stfc-img-2962"]),
 ]))
 
 def gallery_page(slug, keys, extra=""):
