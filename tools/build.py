@@ -446,8 +446,12 @@ PAGES["rah"] = dict(title="Royal Albert Hall", tags="Branding, Creative Directio
 ]))
 
 PAGES["hyperyouth"] = dict(title="Hyperyouth", tags="Generative design, Branding", body=lambda: "\n".join([
-    lead_sec("hyperyouth"), pair_or_full(["avi-portfolio", "hy-motion-1", "hy-motion-2", "hyperyouth-hystage", "hyperyouth-hy-banner", "hyperyouth-vnhy", "hy-code-demo"]),
-    copy_sec("hyperyouth"),
+    # arrangement follows the rows of the original Cargo page
+    sec("", next(x for x in HOME if x["slug"] == "hyperyouth")["lead"], full("hyperyouth-hystage")),
+    full("hy-motion-2"),
+    duo(["hy-motion-1", "hyperyouth-hy-banner"]),
+    full("hyperyouth-vnhy"),
+    sec("", next(x for x in HOME if x["slug"] == "hyperyouth")["copy"][0], full("hy-code-demo")),
 ]))
 
 R2R = json.load(open(os.path.join(ROOT, "tools", "r2r-content.json")))
