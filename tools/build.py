@@ -32,13 +32,21 @@ def m(key):
         return {"src": "", "poster": "", "w": 1, "h": 1}
     return IDX[key]
 
-def media(key, cls="", alt="", eager=False, sizes=None):
+def pick(key, variant):
+    """Return the file entry for a size variant: 'thumb' (560w), 'hero' (1280w), 'side' (900w) or the full file."""
+    d = m(key)
+    v = {"thumb": "t", "hero": "m", "side": "s"}.get(variant)
+    return d[v] if v and v in d else d
+
+def media(key, cls="", alt="", eager=False, variant="full"):
     d = m(key)
     if d["src"].endswith(".mp4"):
-        return (f'<video class="{cls}" src="{d["src"]}" poster="{d["poster"]}" width="{d["w"]}" height="{d["h"]}" '
+        poster = d.get("poster_t") if variant == "thumb" and d.get("poster_t") else d["poster"]
+        return (f'<video class="{cls}" src="{d["src"]}" poster="{poster}" width="{d["w"]}" height="{d["h"]}" '
                 f'muted loop playsinline preload="none" data-autoplay></video>')
-    load = 'fetchpriority="high"' if eager else 'loading="lazy"'
-    return f'<img class="{cls}" src="{d["src"]}" width="{d["w"]}" height="{d["h"]}" alt="{E(alt)}" {load} decoding="async">'
+    f = pick(key, variant)
+    load = 'fetchpriority="high"' if eager == "high" else ('' if eager else 'loading="lazy"')
+    return f'<img class="{cls}" src="{f["src"]}" width="{d["w"]}" height="{d["h"]}" alt="{E(alt)}" {load} decoding="async">'
 
 def ratio(key):
     d = m(key)
@@ -64,8 +72,11 @@ def shell(title, body, *, kind, current=None, desc="Avi Sahni — graphic design
     profile = ""
     if kind != "about":
         profile = f'''
-    <div class="side-photo">{media("ffea1552-cc6b-43ba-bbca-f2bf9564a1c2", alt="Avi Sahni on set beside a film camera", eager=True)}</div>
+    <div class="side-photo">{media("ffea1552-cc6b-43ba-bbca-f2bf9564a1c2", alt="Avi Sahni on set beside a film camera", eager="high", variant="side")}</div>
     <div class="side-row profile"><h3>Profile</h3><div class="txt">{paras(PROFILE)}</div></div>'''
+    side_preload = ""
+    if kind != "about":
+        side_preload = f'\n<link rel="preload" href="{pick("ffea1552-cc6b-43ba-bbca-f2bf9564a1c2", "side")["src"]}" as="image" fetchpriority="high">'
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -76,6 +87,7 @@ def shell(title, body, *, kind, current=None, desc="Avi Sahni — graphic design
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="img/wordmark.png" as="image" fetchpriority="high">{side_preload}
 <link rel="stylesheet" href="css/style.css">
 <script src="js/main.js" defer></script>
 </head>
@@ -114,7 +126,7 @@ def masonry(items, cols=3):
     return columns
 
 def thumb(cap, key, href):
-    return (f'<figure class="thumb"><a href="{href}">{media(key, alt=cap)}</a>'
+    return (f'<figure class="thumb"><a href="{href}">{media(key, alt=cap, eager=True, variant="thumb")}</a>'
             f'<figcaption>{E(cap)}</figcaption></figure>')
 
 HOME = [
@@ -218,7 +230,7 @@ def home_section(p):
     <h2><a href="{href}">{E(p["title"])}</a></h2>
     <p class="lead">{E(p["lead"])}</p>
   </div>
-  <a class="hero" href="{href}" aria-label="{E(p["title"])}">{media(p["hero"], alt=p["title"])}</a>
+  <a class="hero" href="{href}" aria-label="{E(p["title"])}">{media(p["hero"], alt=p["title"], eager=True, variant="hero")}</a>
   <div class="trow">
     <p class="tags">{E(p["tags"])}</p>
     <div class="masonry">{colhtml}</div>
@@ -308,7 +320,7 @@ def build_about():
   <h3 class="label">Nice to meet ya!</h3>
   <p class="lead">{E(PROFILE[0])}<br><span class="ind">{E(PROFILE[1])}</span></p>
 </div>
-<div class="wide">{media("ffea1552-cc6b-43ba-bbca-f2bf9564a1c2", alt="Avi Sahni on set beside a film camera")}</div>
+<div class="wide">{media("ffea1552-cc6b-43ba-bbca-f2bf9564a1c2", alt="Avi Sahni on set beside a film camera", eager="high", variant="hero")}</div>
 <div class="trow about-photos"><p class="tags"></p><div class="masonry">{photos}</div><div class="copy"><p>{E(ABOUT_BLURB)}</p></div></div>
 {rows}'''
     return shell("About — Avi Sahni", body, kind="about")

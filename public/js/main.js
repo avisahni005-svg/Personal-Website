@@ -1,6 +1,9 @@
 // Play videos only while they are on screen, and make "Top ↑" scroll smoothly.
 (() => {
   const vids = document.querySelectorAll("video[data-autoplay]");
+  // Start fetching videos only after the page's images have arrived, so they never compete with them.
+  const whenLoaded = (fn) => (document.readyState === "complete" ? fn() : window.addEventListener("load", fn, { once: true }));
+  whenLoaded(() => {
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver((entries) => {
       for (const e of entries) {
@@ -12,11 +15,12 @@
           v.pause();
         }
       }
-    }, { rootMargin: "200px 0px" });
+    }, { rootMargin: "1500px 0px" });
     vids.forEach((v) => io.observe(v));
   } else {
     vids.forEach((v) => v.play().catch(() => {}));
   }
+  });
 
   document.querySelectorAll("[data-top]").forEach((a) =>
     a.addEventListener("click", (ev) => {

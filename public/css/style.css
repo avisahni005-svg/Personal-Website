@@ -25,11 +25,11 @@
      subhead   same size as text, bold
      caption   20% smaller than text
      heading   large display size (10% smaller than the first version), bold */
-  --fs-base: 12.06px;
+  --fs-base: 13.266px;
   --fs-text: 1rem;
   --fs-sub: 1rem;
   --fs-cap: .8rem;
-  --fs-head: 4.26rem;
+  --fs-head: 3.8727rem;
   --fw-text: 340;
   --fw-bold: 700;
   --lh-text: 1.06;
@@ -43,10 +43,10 @@
 }
 
 /* Base text size follows the window in coarse steps, so Cmd +/- still scales it proportionally */
-@media (max-width: 999px)  { :root { --fs-base: 11.25px; } }
-@media (min-width: 1700px) { :root { --fs-base: 15.3px; } }
-@media (min-width: 2100px) { :root { --fs-base: 18.9px; } }
-@media (min-width: 2600px) { :root { --fs-base: 23.4px; } }
+@media (max-width: 999px)  { :root { --fs-base: 12.375px; } }
+@media (min-width: 1700px) { :root { --fs-base: 16.83px; } }
+@media (min-width: 2100px) { :root { --fs-base: 20.79px; } }
+@media (min-width: 2600px) { :root { --fs-base: 25.74px; } }
 
 * { box-sizing: border-box; }
 html { font-size: var(--fs-base); -webkit-text-size-adjust: none; scroll-behavior: smooth; }
@@ -88,7 +88,7 @@ h1, h2, h3, b, .role, .contact b, .contents nav a[aria-current], .entry .b, .pse
   --wm-top: 2.8vw;
   --wm-w: 32vw;
   --wm-h: calc(var(--wm-w) * 515 / 2000);   /* wordmark.png is 2000 x 515 */
-  --gap-logo: 1.5rem;                         /* optical gap between the logo and the text above / below it */
+  --gap-logo: 1.364rem;                         /* optical gap between the logo and the text above / below it */
 }
 .home .mast { --wm-w: 65vw; }
 .wordmark {
@@ -247,7 +247,7 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 
 /* ------------------------------------------------------------------ narrow screens */
 @media (max-width: 720px) {
-  :root { --fs-base: 12.6px; --fs-head: 3.4rem; --m: 12px; }
+  :root { --fs-base: 13.86px; --fs-head: 3.0909rem; --m: 12px; }
   .mast { position: absolute; height: auto; }
   .wordmark { position: static; display: block; margin: 12px var(--m) 0; width: calc(100vw - 24px); }
   .home .wordmark { width: calc(100vw - 24px); }
@@ -315,3 +315,6 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 .t-sub  { font-size: var(--fs-sub);  font-weight: var(--fw-bold); }
 .t-cap  { font-size: var(--fs-cap);  font-weight: var(--fw-text); color: var(--mute); }
 .t-head { font-size: var(--fs-head); font-weight: var(--fw-bold); letter-spacing: -.04em; line-height: 1; }
+
+/* reserve space and show a quiet tile while an image arrives */
+.thumb img, .thumb video, .hero img, .hero video, .full img, .full video, .duo img, .duo video, .half img, .trio img, .wide img { background: #f1f1f1; }
