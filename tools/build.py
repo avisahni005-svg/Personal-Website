@@ -423,11 +423,14 @@ def copy_sec(slug, label=""):
     return f'<section class="psec"><div class="ptext">{paras(p["copy"])}</div><div class="pmedia"></div></section>'
 
 PAGES["rah"] = dict(title="Royal Albert Hall", tags="Branding, Creative Direction", body=lambda: "\n".join([
-    lead_sec("rah"), pair_or_full(["rah-aviportfoliogx", "rah-uk23lon0361-copy-2", "rah-1", "royal-albert-hall-nov-2012", "rah-royal-albert-hall",
-                                   "rah-uk23lon0175-copy", "rah-uk23lon0177-copy", "rah-uk23lon0554-copy", "rah-uk23lon0403-copy", "rah-uk24lon278-copy",
-                                   "rah-outdoor-screen-mockup-copy", "rah-vinyl-template-c-copy", "rah-free-ticket-mockup-3-copy"]),
-    copy_sec("rah"),
-    pair_or_full(["freight-video-8", "rah-3artboard-1", "rah-scene-with-iphone-16-pro-mockups-v1-front-vew-copy",
+    f'<div class="full">{media("rah-logos-black", alt="Royal Albert Hall logo explorations")}</div>',
+    sec("", next(x for x in HOME if x["slug"] == "rah")["copy"][0],
+        f'<div class="full">{media("rah-aviportfoliogx")}</div>'),
+    pair_or_full(["rah-1", "royal-albert-hall-nov-2012", "rah-royal-albert-hall",
+                  "rah-uk23lon0175-copy", "rah-uk23lon0177-copy", "rah-uk23lon0554-copy", "rah-uk23lon0403-copy", "rah-uk24lon278-copy",
+                  "rah-outdoor-screen-mockup-copy", "rah-vinyl-template-c-copy", "rah-free-ticket-mockup-3-copy"]),
+    f'<section class="psec"><div class="ptext">{paras(next(x for x in HOME if x["slug"] == "rah")["copy"][1:])}</div><div class="pmedia"></div></section>',
+    pair_or_full(["freight-video-8", "rah-scene-with-iphone-16-pro-mockups-v1-front-vew-copy",
                   "rah-screenshot-2025-08-17-at-1-27-16am", "rah-screenshot-2025-08-17-at-1-27-23am", "rah-screenshot-2025-08-17-at-1-27-30am",
                   "rah-screenshot-2025-08-17-at-1-28-06am-copy", "rah-screenshot-2025-08-17-at-1-28-36am-copy",
                   "rah-screenshot-2025-08-17-at-1-28-42am-copy", "rah-screenshot-2025-08-17-at-1-29-31am-copy",

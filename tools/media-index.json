@@ -6250,5 +6250,20 @@
 "w": 1280,
 "h": 1416
 }
+},
+"rah-logos-black": {
+"src": "media/rah/logos-black.webp",
+"w": 1800,
+"h": 948,
+"m": {
+"src": "media/rah/logos-black-m.webp",
+"w": 1280,
+"h": 674
+},
+"t": {
+"src": "media/rah/logos-black-t.webp",
+"w": 560,
+"h": 295
+}
 }
 }
