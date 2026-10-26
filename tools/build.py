@@ -62,6 +62,8 @@ def media(key, cls="", alt="", eager=False, variant="full", style="", sizes="(ma
             srcset = ' srcset="' + ", ".join(f"{u} {w}w" for w, u in opts) + f'" sizes="{sizes}"'
     load = 'fetchpriority="high"' if eager == "high" else ('' if eager else 'loading="lazy"')
     st = f' style="{style}"' if style else ""
+    if d.get("alpha"):
+        cls = (cls + " alpha").strip()      # transparent images: no grey placeholder behind them
     return f'<img class="{cls}"{st} src="{f["src"]}"{srcset} width="{d["w"]}" height="{d["h"]}" alt="{E(alt)}" {load} decoding="async">'
 
 def ratio(key):

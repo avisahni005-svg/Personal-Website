@@ -355,3 +355,6 @@ hr.rule + .psec { border-top: 0; margin-top: 0; padding-top: 0; }
 .unmute .wave { display: none; }
 .unmute[aria-pressed="true"] .wave { display: block; }
 .unmute[aria-pressed="true"] .slash { display: none; }
+
+/* transparent PNGs/WebPs sit straight on the white page */
+img.alpha { background: none !important; }

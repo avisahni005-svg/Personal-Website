@@ -77,7 +77,8 @@
 "src": "media/cargo/3artboard-12600x-s.webp",
 "w": 900,
 "h": 232
-}
+},
+"alpha": true
 },
 "arena-stfc": {
 "src": "media/cargo/arena-stfc.webp",
@@ -107,7 +108,8 @@
 "src": "media/cargo/artboard-26-from-stfc-s.webp",
 "w": 900,
 "h": 506
-}
+},
+"alpha": true
 },
 "aug-27-screenshot-from-aviportfoliogx": {
 "src": "media/cargo/aug-27-screenshot-from-aviportfoliogx.webp",
@@ -1226,7 +1228,8 @@
 "src": "media/cargo/stfc-artboard-26-1-s.webp",
 "w": 900,
 "h": 506
-}
+},
+"alpha": true
 },
 "stfc-aviportfoliogx-1": {
 "src": "media/cargo/stfc-aviportfoliogx-1.webp",
@@ -2382,7 +2385,8 @@
 "src": "media/rah/3artboard-1-s.webp",
 "w": 900,
 "h": 474
-}
+},
+"alpha": true
 },
 "rah-8": {
 "src": "media/rah/8.webp",
@@ -2662,7 +2666,8 @@
 "src": "media/rah/screenshot-2025-08-17-at-1-27-16am-s.webp",
 "w": 900,
 "h": 562
-}
+},
+"alpha": true
 },
 "rah-screenshot-2025-08-17-at-1-27-23am": {
 "src": "media/rah/screenshot-2025-08-17-at-1-27-23am.webp",
@@ -2682,7 +2687,8 @@
 "src": "media/rah/screenshot-2025-08-17-at-1-27-23am-s.webp",
 "w": 900,
 "h": 562
-}
+},
+"alpha": true
 },
 "rah-screenshot-2025-08-17-at-1-27-30am": {
 "src": "media/rah/screenshot-2025-08-17-at-1-27-30am.webp",
@@ -2702,7 +2708,8 @@
 "src": "media/rah/screenshot-2025-08-17-at-1-27-30am-s.webp",
 "w": 900,
 "h": 562
-}
+},
+"alpha": true
 },
 "rah-screenshot-2025-08-17-at-1-28-06am-copy": {
 "src": "media/rah/screenshot-2025-08-17-at-1-28-06am-copy.webp",
@@ -2717,7 +2724,8 @@
 "src": "media/rah/screenshot-2025-08-17-at-1-28-06am-copy-s.webp",
 "w": 900,
 "h": 1849
-}
+},
+"alpha": true
 },
 "rah-screenshot-2025-08-17-at-1-28-36am-copy": {
 "src": "media/rah/screenshot-2025-08-17-at-1-28-36am-copy.webp",
@@ -2732,7 +2740,8 @@
 "src": "media/rah/screenshot-2025-08-17-at-1-28-36am-copy-s.webp",
 "w": 900,
 "h": 1857
-}
+},
+"alpha": true
 },
 "rah-screenshot-2025-08-17-at-1-28-42am-copy": {
 "src": "media/rah/screenshot-2025-08-17-at-1-28-42am-copy.webp",
@@ -2747,7 +2756,8 @@
 "src": "media/rah/screenshot-2025-08-17-at-1-28-42am-copy-s.webp",
 "w": 900,
 "h": 1857
-}
+},
+"alpha": true
 },
 "rah-screenshot-2025-08-17-at-1-29-31am-copy": {
 "src": "media/rah/screenshot-2025-08-17-at-1-29-31am-copy.webp",
@@ -2762,7 +2772,8 @@
 "src": "media/rah/screenshot-2025-08-17-at-1-29-31am-copy-s.webp",
 "w": 900,
 "h": 1857
-}
+},
+"alpha": true
 },
 "rah-uk23lon0175-copy": {
 "src": "media/rah/uk23lon0175-copy.webp",
@@ -5002,7 +5013,8 @@
 "src": "media/stfc/3artboard-26-copy-s.webp",
 "w": 900,
 "h": 506
-}
+},
+"alpha": true
 },
 "stfc-3artboard-26": {
 "src": "media/stfc/3artboard-26.webp",
@@ -5022,7 +5034,8 @@
 "src": "media/stfc/3artboard-26-s.webp",
 "w": 900,
 "h": 506
-}
+},
+"alpha": true
 },
 "stfc-arena-2": {
 "src": "media/stfc/arena-2.webp",
