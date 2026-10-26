@@ -293,9 +293,11 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 .slides .stage { position: relative; width: 100%; background: #efefef; cursor: pointer; overflow: hidden; }
 .slides .stage img {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: contain; opacity: 0; transition: opacity .5s ease;
+  object-fit: contain; opacity: 0; z-index: 0;
 }
-.slides .stage img.on { opacity: 1; }
+.slides .stage img.prev { opacity: 1; z-index: 1; }
+.slides .stage img.on { opacity: 1; z-index: 2; transition: opacity .5s ease; }
+@media (prefers-reduced-motion: reduce) { .slides .stage img.on { transition: none; } }
 .slides:focus-visible .stage { outline: 2px solid var(--ink); outline-offset: 3px; }
 .slides .ctl { display: flex; justify-content: space-between; align-items: baseline; margin-top: .45rem; color: var(--mute); font-weight: var(--fw-text); font-size: var(--fs-cap); }
 .slides .arrows button {

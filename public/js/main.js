@@ -39,12 +39,21 @@
       const im = imgs[(k + n) % n];
       if (im.dataset.src) { im.src = im.dataset.src; delete im.dataset.src; }
     };
+    // Crossfade: the new slide fades in on top while the old one stays fully visible underneath, then is released.
+    let releaseTimer = null;
     const go = (k) => {
+      const next = (k + n) % n;
+      if (next === i) return;
+      imgs.forEach((im) => { if (im !== imgs[i]) im.classList.remove("prev"); });
       imgs[i].classList.remove("on");
-      i = (k + n) % n;
+      imgs[i].classList.add("prev");
+      i = next;
       load(i); load(i + 1); load(i + 2); load(i - 1);
+      imgs[i].classList.remove("prev");
       imgs[i].classList.add("on");
       count.textContent = `${i + 1} / ${n}`;
+      clearTimeout(releaseTimer);
+      releaseTimer = setTimeout(() => imgs.forEach((im) => im.classList.remove("prev")), 520);
     };
     root.querySelector("[data-prev]").addEventListener("click", () => go(i - 1));
     root.querySelector("[data-next]").addEventListener("click", () => go(i + 1));
