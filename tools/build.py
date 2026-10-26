@@ -121,13 +121,14 @@ HOME = [
     dict(slug="stfc", num="01", title="Street Football Club",
          lead="As someone who has played soccer all my life, Street Football Club has always been an intriguing entity to me. A pick up football community aimed at bringing the speed and chaos of street football culture to America. This project was particularly challenging as the community spans across 13 cities, and it was important to let each cities individual personality shine.",
          tags="Branding, Motion, Creative Direction",
-         hero="stfc-arena", crop=True,
+         hero="stfc-hero-video",
          copy=["The rebrand goal was to create a strong base system for STFC the organisation, with individual and unique identities for each city that convey speed and chaos.",
                "There are 13 cities that STFC is in at the moment, and they expand every year. The goal for this part was to create a set of wordmarks for each city that fall in the same system. This resulted in every city having a unique identity with a wide color palette."],
          thumbs=[("Stationary", "stfc-aviportfoliogx-8"), ("Stickers", "stfc-artboard-26-1"),
                  ("Spatial Application_1", "stfc-arena"), ("Posters_1", "stfc-poster"),
                  ("Business Cards", "stfc-aviportfoliogx-1"), ("Billboard", "austin-poster-stfc"),
-                 ("Spatial Application_2", "arena-stfc"), ("Spatial Application_3", "stfc-arena-3"),
+                 ("Spatial Application_2", "arena-stfc"), ("Website", "stfc-laptop-video"),
+                 ("Spatial Application_3", "stfc-arena-3"),
                  ("Merch", "artboard-26-from-stfc"), ("Motion", "motion-video"),
                  ("Posters_2", "free-poster-mockup-4"), ("Marketing", "stfc-aviportfoliogx-2")]),
     dict(slug="rah", num="02", title="Royal Albert Hall",
@@ -150,7 +151,8 @@ HOME = [
          hero="avi-portfolio",
          copy=["Built in p5.js, using wave functions, randomness, and real-time audio-reactive input, the design translates the record's sample-heavy chaos and youthful energy into an evolving, interactive visual language."],
          thumbs=[("Vinyl", "hyperyouth-portfolio"), ("Billboard", "hyperyouth-banner"),
-                 ("Stage", "hyperyouth-hystage"), ("Code Demo_1", "10-copy-4")]),
+                 ("Motion_1", "hy-motion-1"), ("Code Demo_1", "hy-code-demo"),
+                 ("Motion_2", "hy-motion-2")]),
     dict(slug="right-to-resist", num="04", title="Right to Resist",
          lead="Revolution and rebellion are complex, from the French Revolution to the Bolsheviks, to January 6th in the USA. Where does one draw the line between right and wrong and who decides on a collective morality? \"Right to Resist\" explores this and more, covering the ethics and philosophies, as well as the function and process of revolutions and resistance. It is in no way an unbiased commentary, but instead a collection of thoughts meant to inspire change.",
          tags="Publication",
@@ -372,15 +374,63 @@ PAGES["rah"] = dict(title="Royal Albert Hall", tags="Branding, Creative Directio
 ]))
 
 PAGES["hyperyouth"] = dict(title="Hyperyouth", tags="Generative design, Branding", body=lambda: "\n".join([
-    lead_sec("hyperyouth"), pair_or_full(["avi-portfolio", "hyperyouth-hystage", "hyperyouth-hy-banner", "hyperyouth-vnhy", "10-copy-4"]),
+    lead_sec("hyperyouth"), pair_or_full(["avi-portfolio", "hy-motion-1", "hy-motion-2", "hyperyouth-hystage", "hyperyouth-hy-banner", "hyperyouth-vnhy", "hy-code-demo", "10-copy-4"]),
     copy_sec("hyperyouth"),
 ]))
 
-R2R_GAL = [k for k in IDX["_order"]["right-to-resist"] if k.startswith("r2r-")]
-PAGES["right-to-resist"] = dict(title="Right to Resist", tags="Publication", body=lambda: "\n".join([
-    lead_sec("right-to-resist"), f'<div class="full">{media("avi-portfolio-video")}</div>', copy_sec("right-to-resist"),
-    pair_or_full(R2R_GAL),
-]))
+R2R = json.load(open(os.path.join(ROOT, "tools", "r2r-content.json")))
+
+def slideshow(keys, label):
+    first = m(keys[0])
+    imgs = []
+    for i, k in enumerate(keys):
+        d = m(k)
+        if i == 0:
+            imgs.append(f'<img class="on" src="{d["src"]}" width="{d["w"]}" height="{d["h"]}" alt="{E(label)} — spread 1" decoding="async">')
+        else:
+            imgs.append(f'<img data-src="{d["src"]}" width="{d["w"]}" height="{d["h"]}" alt="{E(label)} — spread {i+1}" decoding="async">')
+    n = len(keys)
+    return (f'<div class="slides" data-slides tabindex="0" role="group" aria-roledescription="slideshow" aria-label="{E(label)}">'
+            f'<div class="stage" style="aspect-ratio:{first["w"]}/{first["h"]}">{"".join(imgs)}</div>'
+            f'<div class="ctl"><span class="count" aria-live="polite">1 / {n}</span>'
+            f'<span class="arrows"><button type="button" data-prev aria-label="Previous">←</button>'
+            f'<button type="button" data-next aria-label="Next">→</button></span></div></div>')
+
+def trio(keys):
+    return '<div class="trio">' + "".join(media(k) for k in keys) + "</div>"
+
+def r2r_body():
+    out, blocks = [], R2R[2:]       # skip the site-wide about blurb and the portrait
+    out.append(f'<section class="psec"><div class="ptext"><p>{E(blocks[0]["items"][1])}</p></div><div class="pmedia"></div></section>')
+    it = blocks[0]["items"]
+    out.append(f'<section class="psec"><div class="ptext"><h3>{E('Color and Type')}</h3>'
+               f'<p>{E(it[3])}</p><p>{E(it[4])}</p></div><div class="pmedia"></div></section>')
+    out.append(f'<div class="full">{media("avi-portfolio-video")}</div>')
+    pending = None
+    for b in blocks[2:]:
+        if b["type"] == "text":
+            t = b["items"]
+            if len(t) == 1:
+                label, text = t[0], ""
+                head = f'<h3>{E(label)}</h3>'
+            else:
+                label = t[0].replace("&2", "& 2")
+                head = f'<h3>{E(label)}</h3>' + "".join(f'<p class="b">{E(x)}</p>' for x in t[1:-1])
+                text = t[-1]
+            pending = (label, head, text)
+        elif b["type"] == "gallery-slideshow":
+            if pending:
+                lab, head, text = pending
+                body = f'<p>{E(text)}</p>' if text else ""
+                out.append(f'<section class="psec"><div class="ptext">{head}{body}</div><div class="pmedia">{slideshow(b["items"], lab)}</div></section>')
+                pending = None
+            else:
+                out.append(f'<div class="full">{slideshow(b["items"], "Opening spreads")}</div>')
+        elif b["type"] == "gallery-justify":
+            out.append(trio(b["items"]))
+    return "\n".join(out)
+
+PAGES["right-to-resist"] = dict(title="Right to Resist", tags="Publication", body=r2r_body)
 
 PAGES["dekho"] = dict(title="Dekho Magar Pyaar Se", tags="Publication, Posters, Motion", body=lambda: "\n".join([
     lead_sec("dekho"), pair_or_full(["aviportfoliogx-img-1739", "dekho-215a0010", "dekho-215a0012", "dekho-215a0020", "dekho-215a0024", "dekho-215a0039",

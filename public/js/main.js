@@ -24,4 +24,46 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     })
   );
+
+  // Slideshows: fade between spreads, preload neighbours, arrows / click / swipe / keys.
+  document.querySelectorAll("[data-slides]").forEach((root) => {
+    const imgs = [...root.querySelectorAll(".stage img")];
+    const count = root.querySelector(".count");
+    const n = imgs.length;
+    let i = 0;
+    const load = (k) => {
+      const im = imgs[(k + n) % n];
+      if (im.dataset.src) { im.src = im.dataset.src; delete im.dataset.src; }
+    };
+    const go = (k) => {
+      imgs[i].classList.remove("on");
+      i = (k + n) % n;
+      load(i); load(i + 1); load(i - 1);
+      imgs[i].classList.add("on");
+      count.textContent = `${i + 1} / ${n}`;
+    };
+    root.querySelector("[data-prev]").addEventListener("click", () => go(i - 1));
+    root.querySelector("[data-next]").addEventListener("click", () => go(i + 1));
+    const stage = root.querySelector(".stage");
+    stage.addEventListener("click", (e) => {
+      const r = stage.getBoundingClientRect();
+      go(e.clientX - r.left < r.width / 3 ? i - 1 : i + 1);
+    });
+    root.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { e.preventDefault(); go(i + 1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(i - 1); }
+    });
+    let x0 = null;
+    stage.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener("touchend", (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) go(dx < 0 ? i + 1 : i - 1);
+      x0 = null;
+    });
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { load(1); io.disconnect(); } }, { rootMargin: "300px 0px" });
+      io.observe(root);
+    }
+  });
 })();

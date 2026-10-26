@@ -1689,5 +1689,40 @@
 "r2r-1-copy-95",
 "r2r-1-copy-96"
 ]
+},
+"r2r-1-copy-24": {
+"src": "media/right-to-resist/1-copy-24.webp",
+"w": 1800,
+"h": 1353
+},
+"stfc-hero-video": {
+"src": "media/video/stfc-hero.mp4",
+"w": 1280,
+"h": 840,
+"poster": "media/video/stfc-hero-poster.webp"
+},
+"stfc-laptop-video": {
+"src": "media/video/stfc-laptop.mp4",
+"w": 720,
+"h": 406,
+"poster": "media/video/stfc-laptop-poster.webp"
+},
+"hy-motion-1": {
+"src": "media/video/hy-motion-1.mp4",
+"w": 720,
+"h": 720,
+"poster": "media/video/hy-motion-1-poster.webp"
+},
+"hy-motion-2": {
+"src": "media/video/hy-motion-2.mp4",
+"w": 1000,
+"h": 512,
+"poster": "media/video/hy-motion-2-poster.webp"
+},
+"hy-code-demo": {
+"src": "media/video/hy-code-demo.mp4",
+"w": 1000,
+"h": 650,
+"poster": "media/video/hy-code-demo-poster.webp"
 }
 }
