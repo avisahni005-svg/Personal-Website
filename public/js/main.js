@@ -113,4 +113,69 @@
       }
     });
   });
+
+  // Playground: each press of the spacebar (or tap) drops the next image, at a random spot, on top of the others. Cards can be dragged.
+  const stage = document.getElementById("pg-stage");
+  if (stage) {
+    let items = [];
+    try { items = JSON.parse(stage.dataset.items || "[]"); } catch (e) { items = []; }
+    let bag = [], z = 1;
+    const cards = [];
+    const refill = () => {
+      bag = items.map((_, k) => k);
+      for (let k = bag.length - 1; k > 0; k--) { const r = Math.floor(Math.random() * (k + 1)); [bag[k], bag[r]] = [bag[r], bag[k]]; }
+    };
+    const place = (card, it) => {
+      const sw = stage.clientWidth, sh = stage.clientHeight;
+      const ratio = it.w / it.h;
+      let h = Math.min(sh * (0.55 + Math.random() * 0.3), (sw * (0.3 + Math.random() * 0.2)) / ratio);
+      let w = h * ratio;
+      if (w > sw * 0.7) { w = sw * 0.7; h = w / ratio; }
+      card.style.width = w + "px"; card.style.height = h + "px";
+      card.style.left = Math.random() * Math.max(0, sw - w) + "px";
+      card.style.top = Math.random() * Math.max(0, sh - h) + "px";
+    };
+    const front = (card) => { card.style.zIndex = ++z; };
+    const make = (it) => {
+      const card = document.createElement("div");
+      card.className = "pg-card pop";
+      let el;
+      if (it.v) { el = document.createElement("video"); el.src = it.s; el.muted = true; el.loop = true; el.autoplay = true; el.playsInline = true; }
+      else { el = document.createElement("img"); el.src = it.s; el.alt = ""; el.draggable = false; }
+      card.appendChild(el);
+      card.addEventListener("pointerdown", (e) => {
+        if (e.button !== undefined && e.button !== 0) return;
+        e.preventDefault();
+        front(card); card.classList.add("drag");
+        card.setPointerCapture(e.pointerId);
+        const dx = e.clientX - card.offsetLeft, dy = e.clientY - card.offsetTop;
+        const move = (ev) => {
+          const sw = stage.clientWidth, sh = stage.clientHeight, w = card.offsetWidth, h = card.offsetHeight;
+          card.style.left = Math.min(sw - w * 0.25, Math.max(-w * 0.75, ev.clientX - dx)) + "px";
+          card.style.top = Math.min(sh - h * 0.25, Math.max(-h * 0.75, ev.clientY - dy)) + "px";
+        };
+        const up = () => { card.classList.remove("drag"); card.removeEventListener("pointermove", move); card.removeEventListener("pointerup", up); card.removeEventListener("pointercancel", up); };
+        card.addEventListener("pointermove", move); card.addEventListener("pointerup", up); card.addEventListener("pointercancel", up);
+      });
+      return card;
+    };
+    const next = () => {
+      if (!items.length) return;
+      if (!bag.length) refill();
+      const it = items[bag.pop()];
+      let card;
+      if (cards.length >= items.length) { card = cards.shift(); stage.removeChild(card); }   // all shown once: recycle the oldest
+      card = make(it);
+      place(card, it); front(card); stage.appendChild(card); cards.push(card);
+    };
+    refill();
+    document.addEventListener("keydown", (e) => {
+      if (e.code !== "Space" && e.key !== " ") return;
+      const t = e.target; if (t && /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(t.tagName)) return;
+      e.preventDefault(); if (!e.repeat) next();
+    });
+    stage.addEventListener("click", (e) => { if (e.target === stage && window.matchMedia("(pointer: coarse)").matches) next(); });
+    // warm the cache so the first presses are instant
+    items.slice(0, 6).forEach((it) => { if (!it.v) { const im = new Image(); im.src = it.s; } });
+  }
 })();

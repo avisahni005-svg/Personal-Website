@@ -74,8 +74,8 @@ def paras(texts):
     return "".join(f"<p>{E(t)}</p>" for t in texts)
 
 # --------------------------------------------------------------------------- shell
-def shell(title, body, *, kind, current=None, desc="Avi Sahni — graphic designer working across branding, typography and creative coding."):
-    cls = f"{kind}"
+def shell(title, body, *, kind, current=None, extra_cls="", desc="Avi Sahni — graphic designer working across branding, typography and creative coding."):
+    cls = f"{kind} {extra_cls}".strip()
     top_link = '<a class="about-link" href="about.html">↗ About</a>' if kind == "home" else ""
     # the same Contents on every page; the current page is marked
     home_a = f'<a href="index.html"{" aria-current=page" if kind == "home" else ""}>Home</a>'
@@ -536,14 +536,25 @@ PAGES["dekho"] = dict(title="Dekho Magar Pyaar Se", tags="Publication, Posters, 
     duo(["mp2-video", "freight-cargo-video", "dekho-mp3-video"]),
 ]))
 
-PAGES["playground"] = dict(title="Playground :)", tags="Having fun...", body=lambda: "\n".join([
-    lead_sec("playground"), pair_or_full(["playground-dick-2-copy", "limbo", "untitled-19", "new-wave-poster-copy-01", "playground-untitled-110-copy",
-                                         "playground-insane-me-poster", "playground-posters-copy-page-0001-copy", "posters-copy-2-page-0001",
-                                         "playground-img-8532-copy", "avi-25", "avi-26", "other-futures-portfolio-2", "avi-13",
-                                         "scan-2700x3573", "scan-2406x2977", "aphonik-video", "posters-under-the-bridge-copy-2",
-                                         "free-poster-set-mockup-2", "gravity-cardboard-boxes-mockup", "playground-img-0312", "playground-img-0495",
-                                         "playground-img-0711", "img-0757-5472x3648", "img-0294", "img-0309", "img-0582", "symbiosis-portfolio-image-5"]),
-]))
+PG_KEYS = ["playground-dick-2-copy", "limbo", "untitled-19", "new-wave-poster-copy-01", "playground-untitled-110-copy",
+           "playground-insane-me-poster", "playground-posters-copy-page-0001-copy", "posters-copy-2-page-0001",
+           "playground-img-8532-copy", "avi-25", "avi-26", "other-futures-portfolio-2", "avi-13",
+           "scan-2700x3573", "scan-2406x2977", "aphonik-video", "posters-under-the-bridge-copy-2",
+           "free-poster-set-mockup-2", "gravity-cardboard-boxes-mockup", "playground-img-0312", "playground-img-0495",
+           "playground-img-0711", "img-0757-5472x3648", "img-0294", "img-0309", "img-0582", "symbiosis-portfolio-image-5"]
+
+def playground_body():
+    items = []
+    for k in PG_KEYS:
+        d = m(k)
+        f = pick(k, "hero")
+        items.append({"s": f["src"], "w": d["w"], "h": d["h"], "v": d["src"].endswith(".mp4")})
+        if d["src"].endswith(".mp4"):
+            items[-1]["s"] = d["src"]
+    data = E(json.dumps(items, separators=(",", ":")))
+    return f'<div class="pg-stage" id="pg-stage" data-items="{data}" aria-label="Playground"></div>'
+
+PAGES["playground"] = dict(title="Playground :) Press the spacebar.", tags="", cls="pg", body=playground_body)
 
 def build_project(slug):
     p = PAGES[slug]
@@ -554,7 +565,7 @@ def build_project(slug):
     # Project pages load every image straight away (the files are small), the first two at high priority
     body = body.replace(' loading="lazy"', "")
     body = body.replace('<img class="', '<img fetchpriority="high" class="', 2) if "fetchpriority" not in body else body
-    return shell(f'{p["title"]} — Avi Sahni', body, kind="project", current=slug)
+    return shell(f'{p["title"]} — Avi Sahni', body, kind="project", current=slug, extra_cls=p.get("cls", ""))
 
 def main():
     out = {"index.html": build_home(), "about.html": build_about()}

@@ -363,3 +363,22 @@ img.alpha { background: none !important; }
 
 /* a plain rule between two groups of media: space above it, the next image close under it (same convention as every rule) */
 hr.sep { border: 0; border-top: 1px solid var(--ink); width: 100%; margin: var(--rule-above) 0 var(--rule-below); }
+
+/* ------------------------------------------------------------------ Playground: one screen, no scrolling */
+@media (min-width: 721px) {
+  html:has(body.pg), body.pg { height: 100%; overflow: hidden; }
+  body.pg main { height: 100vh; min-height: 0; }
+  body.pg .title-gap { height: calc(2.8vw + 32vw * 515 / 2000 + 1.364rem); flex: none; }   /* logo bottom + the same gap used elsewhere */
+  body.pg .ptitle { margin-bottom: var(--rule-below); white-space: nowrap; }
+  body.pg .rule { margin-bottom: 0; }
+  body.pg .foot { display: none; }
+  body.pg .pg-stage { flex: 1 1 auto; min-height: 0; }
+}
+.pg-stage { position: relative; overflow: hidden; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.pg-card { position: absolute; margin: 0; cursor: grab; touch-action: none; box-shadow: 0 .3rem 1.2rem rgba(0,0,0,.14); background: #fff; }
+.pg-card.drag { cursor: grabbing; box-shadow: 0 .6rem 1.8rem rgba(0,0,0,.22); }
+.pg-card img, .pg-card video { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; -webkit-user-drag: none; background: #f1f1f1; }
+.pg-card.pop { animation: pgpop .22s ease-out; }
+@keyframes pgpop { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .pg-card.pop { animation: none; } }
+@media (max-width: 720px) { .pg-stage { height: 70vh; margin-bottom: 20px; } }
