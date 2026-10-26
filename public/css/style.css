@@ -34,9 +34,9 @@
   --fw-bold: 700;
   --lh-text: 1.06;
   --m: .85vw;              /* outer margin */
-  --c1: 16.5vw;            /* left column */
+  --c1: 16.51vw;           /* left column: the content edge lines up with the first stem of the wordmark's "I" */
   --c2: 16.5vw;            /* second column */
-  --c3: 31.9vw;            /* third column */
+  --c3: 31.99vw;           /* third column: c1+c2+c3 = 65vw, the wordmark's width, so the right edges line up too */
   --gap: 1vw;
   --side-left: 66.8vw;
   --side-w: 32.45vw;
@@ -100,9 +100,9 @@ h1, h2, h3, b, .role, .contact b, .contents nav a[aria-current], .entry .b, .pse
 }
 .role, .tagline, .contact, .about-link { position: absolute; margin: 0; }
 .role, .tagline { top: calc(var(--wm-top) - var(--gap-logo) - .74rem); }   /* baseline sits one gap above the logo */
-.role { left: 17.35vw; }
-.tagline { left: 33.85vw; }
-.contact { left: 33.85vw; top: 3.1vw; }
+.role { left: calc(var(--m) + var(--c1)); }
+.tagline { left: calc(var(--m) + var(--c1) + var(--c2)); }
+.contact { left: calc(var(--m) + var(--c1) + var(--c2)); top: 3.1vw; }
 .about-link { display: none; left: 17.5vw; }
 
 .home .contact, .home .about-link { top: calc(var(--wm-top) + var(--wm-h) + var(--gap-logo) - .14rem); }   /* cap-top sits one gap below the logo */
@@ -170,7 +170,7 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 .masonry {
   grid-column: 2 / 4;
   display: grid;
-  grid-template-columns: repeat(3, 10vw) 15.4vw;
+  grid-template-columns: repeat(3, 10vw) 1fr;
   column-gap: var(--gap);
   width: calc(var(--c2) + var(--c3));
 }
@@ -183,7 +183,7 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 .copy {
   position: absolute;
   margin-left: calc(var(--c1) + 3 * 10vw + 3 * var(--gap));
-  width: 15.4vw;
+  width: 15.5vw;
 }
 .trow { position: relative; }
 .copy p + p { text-indent: 1.1rem; }
