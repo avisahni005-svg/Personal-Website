@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hyperyouth — Avi Sahni</title>
+<meta name="description" content="Avi Sahni — graphic designer working across branding, typography and creative coding.">
+<meta name="theme-color" content="#ffffff">
+<script>
+/* Opening a page from a link always starts at the top (back/forward keep their own scroll position) */
+(function () {
+  var nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+  if (location.hash || (nav && nav.type !== "navigate")) return;
+  var top = function () { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); };
+  top();
+  document.addEventListener("DOMContentLoaded", top);
+  window.addEventListener("load", top);
+  window.addEventListener("pageshow", top);
+})();
+</script>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="img/wordmark.png" as="image" fetchpriority="high">
+<link rel="preload" href="media/cargo/ffea1552-cc6b-43ba-bbca-f2bf9564a1c2-s.webp" as="image" fetchpriority="high">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
+</head>
+<body class="project">
+<header class="mast">
+  <img class="wordmark" src="img/wordmark.png" width="2000" height="515" alt="Avi Sahni">
+  <p class="role">Graphic Designer</p>
+  <p class="tagline">Branding, Typography &amp; Creative Coding</p>
+  <p class="contact"><b>(M)</b> <a href="mailto:hello@avisahni.design">hello@avisahni.design</a><br><b>(IG)</b> <a href="https://www.instagram.com/avisahni.design/" rel="noopener">avisahni.design</a></p>
+  
+</header>
+<a class="wm-link" href="index.html" aria-label="Home"></a>
+<main>
+<div class="title-gap"></div><h1 class="big ptitle">Hyperyouth</h1><hr class="rule">
+<section class="psec"><div class="ptext"><p>Initially starting as a way of learning generative design I took an album from rap duo Joey Valence &amp; Brae and created a creative identity for its release. Hyperyouth is an introspective album at large but it still lets the duo&#x27;s fun and goofy side shine at times.</p></div><div class="pmedia"><div class="full"><img fetchpriority="high" class="" src="media/hyperyouth/hystage.webp" srcset="media/hyperyouth/hystage-t.webp 560w, media/hyperyouth/hystage-m.webp 1280w, media/hyperyouth/hystage.webp 1800w" sizes="(max-width: 720px) 100vw, 65vw" width="1800" height="984" alt="" decoding="async"></div></div></section>
+<div class="full"><div class="vwrap"><video class="" src="media/video/hy-motion-2-audio.mp4" poster="media/video/hy-motion-2-poster.webp" width="1000" height="512" muted loop playsinline preload="none" data-autoplay data-audio></video><button type="button" class="unmute" data-unmute aria-pressed="false" aria-label="Unmute video"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path class="spk" d="M3 9v6h4l5 4V5L7 9H3z"/><path class="wave" d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="slash" d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div>
+<div class="duo"><div class="vwrap" style="flex:1.0000 1 0%"><video class="" src="media/video/hy-motion-1-audio.mp4" poster="media/video/hy-motion-1-poster.webp" width="720" height="720" muted loop playsinline preload="none" data-autoplay data-audio></video><button type="button" class="unmute" data-unmute aria-pressed="false" aria-label="Unmute video"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path class="spk" d="M3 9v6h4l5 4V5L7 9H3z"/><path class="wave" d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="slash" d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div><img fetchpriority="high" class="" style="flex:0.6677 1 0%" src="media/hyperyouth/hy-banner.webp" srcset="media/hyperyouth/hy-banner-t.webp 560w, media/hyperyouth/hy-banner-m.webp 1280w, media/hyperyouth/hy-banner.webp 1800w" sizes="(max-width: 720px) 40vw, 26vw" width="1800" height="2696" alt="" decoding="async"></div>
+<div class="full"><img class="" src="media/hyperyouth/vnhy.webp" srcset="media/hyperyouth/vnhy-t.webp 560w, media/hyperyouth/vnhy-m.webp 1280w, media/hyperyouth/vnhy.webp 1800w" sizes="(max-width: 720px) 100vw, 65vw" width="1800" height="2399" alt="" decoding="async"></div>
+<section class="psec"><div class="ptext"><p>Built in p5.js, using wave functions, randomness, and real-time audio-reactive input, the design translates the record&#x27;s sample-heavy chaos and youthful energy into an evolving, interactive visual language.</p></div><div class="pmedia"><div class="full"><div class="vwrap"><video class="" src="media/video/hy-code-demo-audio.mp4" poster="media/video/hy-code-demo-poster.webp" width="1000" height="650" muted loop playsinline preload="none" data-autoplay data-audio></video><button type="button" class="unmute" data-unmute aria-pressed="false" aria-label="Unmute video"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path class="spk" d="M3 9v6h4l5 4V5L7 9H3z"/><path class="wave" d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="slash" d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div></div></section>
+<footer class="foot">
+  <a class="top" href="#" data-top>Top ↑</a>
+  <p>Everything is a reflection of the chaos around it :)</p>
+</footer>
+</main>
+<aside class="side">
+    <div class="side-photo"><img class="" src="media/cargo/ffea1552-cc6b-43ba-bbca-f2bf9564a1c2-s.webp" width="1545" height="994" alt="Avi Sahni on set beside a film camera" fetchpriority="high" decoding="async"></div>
+    <div class="side-row profile"><h3>Profile</h3><div class="txt"><p>Ever driven up a mountain on a one-lane road with traffic coming both ways, horns blaring, Punjabi music blasting, and a full-blown debate about dream cars in the back seat? That was just a normal day growing up in Dehradun, India. Nothing seemed to fit together, and somehow it all worked.</p><p>This chaos shaped my design practice today. I&#x27;m at my best when a project feels scattered, with too many moving pieces and no obvious thread. That&#x27;s where I find my footing, pulling it all together into work that&#x27;s layered and intricate but, in the end, feels clear and inevitable.</p></div></div>
+  <div class="side-row contents"><h3>Contents</h3><nav><a href="index.html">Home</a><a href="about.html">About</a><span class="gap"></span><a href="stfc.html">Street Football Club</a><a href="rah.html">Royal Albert Hall</a><a href="hyperyouth.html" aria-current=page>Hyperyouth</a><a href="right-to-resist.html">Right to Resist</a><a href="dekho.html">Dekho Magar Pyaar Se</a><a href="playground.html">Playground :)</a></nav></div>
+</aside>
+</body>
+</html>

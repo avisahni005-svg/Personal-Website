@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playground :) Press the spacebar. — Avi Sahni</title>
+<meta name="description" content="Avi Sahni — graphic designer working across branding, typography and creative coding.">
+<meta name="theme-color" content="#ffffff">
+<script>
+/* Opening a page from a link always starts at the top (back/forward keep their own scroll position) */
+(function () {
+  var nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+  if (location.hash || (nav && nav.type !== "navigate")) return;
+  var top = function () { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); };
+  top();
+  document.addEventListener("DOMContentLoaded", top);
+  window.addEventListener("load", top);
+  window.addEventListener("pageshow", top);
+})();
+</script>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="img/wordmark.png" as="image" fetchpriority="high">
+<link rel="preload" href="media/cargo/ffea1552-cc6b-43ba-bbca-f2bf9564a1c2-s.webp" as="image" fetchpriority="high">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
+</head>
+<body class="project pg">
+<header class="mast">
+  <img class="wordmark" src="img/wordmark.png" width="2000" height="515" alt="Avi Sahni">
+  <p class="role">Graphic Designer</p>
+  <p class="tagline">Branding, Typography &amp; Creative Coding</p>
+  <p class="contact"><b>(M)</b> <a href="mailto:hello@avisahni.design">hello@avisahni.design</a><br><b>(IG)</b> <a href="https://www.instagram.com/avisahni.design/" rel="noopener">avisahni.design</a></p>
+  
+</header>
+<a class="wm-link" href="index.html" aria-label="Home"></a>
+<main>
+<div class="title-gap"></div><h1 class="big ptitle">Playground :) Press the spacebar.</h1><hr class="rule">
+<div class="pg-stage" id="pg-stage" data-items="[{&quot;s&quot;:&quot;media/playground/dick-2-copy-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:1012,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/limbo-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:1350,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/untitled-19-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:2700,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/new-wave-poster-copy-01-m.webp&quot;,&quot;w&quot;:1540,&quot;h&quot;:2310,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/untitled-110-copy.webp&quot;,&quot;w&quot;:1200,&quot;h&quot;:1800,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/insane-me-poster.webp&quot;,&quot;w&quot;:1200,&quot;h&quot;:1800,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/posters-copy-page-0001-copy-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:2700,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/posters-copy-2-page-0001.webp&quot;,&quot;w&quot;:1200,&quot;h&quot;:1800,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/img-8532-copy-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:939,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/avi-25-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:1200,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/avi-26-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:1200,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/other-futures-portfolio-2-m.webp&quot;,&quot;w&quot;:1500,&quot;h&quot;:2250,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/avi-13-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:1200,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/scan-2700x3573-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:2382,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/scan-2406x2977-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:2228,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/avisahni-no-freeze-by-aphonik.mp4&quot;,&quot;w&quot;:1280,&quot;h&quot;:1922,&quot;v&quot;:true},{&quot;s&quot;:&quot;media/cargo/posters-under-the-bridge-copy-2-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:1201,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/free-poster-set-mockup-2-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:1350,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/gravity-cardboard-boxes-mockup-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:1350,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/img-0312-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:1200,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/img-0495-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:1200,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/img-0711-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:2700,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/img-0757-5472x3648-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:1200,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/img-0294-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:1200,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/img-0309-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:2700,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/img-0582-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:1200,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/cargo/symbiosis-portfolio-image-5-m.webp&quot;,&quot;w&quot;:1500,&quot;h&quot;:2000,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/font-poster.webp&quot;,&quot;w&quot;:2213,&quot;h&quot;:3293,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/font-poster-final.webp&quot;,&quot;w&quot;:2160,&quot;h&quot;:3240,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/p301-video.mp4&quot;,&quot;w&quot;:1080,&quot;h&quot;:1350,&quot;v&quot;:true},{&quot;s&quot;:&quot;media/playground/p301-1-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:2250,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/p301-2-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:2250,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/p301-3-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:2250,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/p301-4-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:2250,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/p301-5-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:2250,&quot;v&quot;:false},{&quot;s&quot;:&quot;media/playground/p301-6-m.webp&quot;,&quot;w&quot;:1800,&quot;h&quot;:2250,&quot;v&quot;:false}]" aria-label="Playground"></div>
+<footer class="foot">
+  <a class="top" href="#" data-top>Top ↑</a>
+  <p>Everything is a reflection of the chaos around it :)</p>
+</footer>
+</main>
+<aside class="side">
+    <div class="side-photo"><img class="" src="media/cargo/ffea1552-cc6b-43ba-bbca-f2bf9564a1c2-s.webp" width="1545" height="994" alt="Avi Sahni on set beside a film camera" fetchpriority="high" decoding="async"></div>
+    <div class="side-row profile"><h3>Profile</h3><div class="txt"><p>Ever driven up a mountain on a one-lane road with traffic coming both ways, horns blaring, Punjabi music blasting, and a full-blown debate about dream cars in the back seat? That was just a normal day growing up in Dehradun, India. Nothing seemed to fit together, and somehow it all worked.</p><p>This chaos shaped my design practice today. I&#x27;m at my best when a project feels scattered, with too many moving pieces and no obvious thread. That&#x27;s where I find my footing, pulling it all together into work that&#x27;s layered and intricate but, in the end, feels clear and inevitable.</p></div></div>
+  <div class="side-row contents"><h3>Contents</h3><nav><a href="index.html">Home</a><a href="about.html">About</a><span class="gap"></span><a href="stfc.html">Street Football Club</a><a href="rah.html">Royal Albert Hall</a><a href="hyperyouth.html">Hyperyouth</a><a href="right-to-resist.html">Right to Resist</a><a href="dekho.html">Dekho Magar Pyaar Se</a><a href="playground.html" aria-current=page>Playground :)</a></nav></div>
+</aside>
+</body>
+</html>
