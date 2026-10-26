@@ -6193,6 +6193,11 @@
 "src": "media/cargo/about-a-t.webp",
 "w": 560,
 "h": 420
+},
+"m": {
+"src": "media/cargo/about-a-m.webp",
+"w": 1280,
+"h": 960
 }
 },
 "about-b": {
@@ -6203,6 +6208,11 @@
 "src": "media/cargo/about-b-t.webp",
 "w": 560,
 "h": 420
+},
+"m": {
+"src": "media/cargo/about-b-m.webp",
+"w": 1280,
+"h": 960
 }
 },
 "about-c": {
@@ -6213,6 +6223,11 @@
 "src": "media/cargo/about-c-t.webp",
 "w": 560,
 "h": 747
+},
+"m": {
+"src": "media/cargo/about-c-m.webp",
+"w": 1280,
+"h": 1707
 }
 },
 "stfc-laptop-large": {
@@ -6224,6 +6239,16 @@
 "stfc-poster-wall": {
 "src": "media/stfc/poster-wall.webp",
 "w": 1800,
-"h": 1991
+"h": 1991,
+"t": {
+"src": "media/stfc/poster-wall-t.webp",
+"w": 560,
+"h": 619
+},
+"m": {
+"src": "media/stfc/poster-wall-m.webp",
+"w": 1280,
+"h": 1416
+}
 }
 }

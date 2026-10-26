@@ -42,7 +42,7 @@
     const go = (k) => {
       imgs[i].classList.remove("on");
       i = (k + n) % n;
-      load(i); load(i + 1); load(i - 1);
+      load(i); load(i + 1); load(i + 2); load(i - 1);
       imgs[i].classList.add("on");
       count.textContent = `${i + 1} / ${n}`;
     };
@@ -66,7 +66,7 @@
       x0 = null;
     });
     if ("IntersectionObserver" in window) {
-      const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { load(1); io.disconnect(); } }, { rootMargin: "300px 0px" });
+      const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { load(1); load(2); load(3); io.disconnect(); } }, { rootMargin: "2000px 0px" });
       io.observe(root);
     }
   });

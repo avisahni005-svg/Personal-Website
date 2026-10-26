@@ -38,7 +38,7 @@ def pick(key, variant):
     v = {"thumb": "t", "hero": "m", "side": "s"}.get(variant)
     return d[v] if v and v in d else d
 
-def media(key, cls="", alt="", eager=False, variant="full", style=""):
+def media(key, cls="", alt="", eager=False, variant="full", style="", sizes="(max-width: 720px) 100vw, 65vw"):
     d = m(key)
     if d["src"].endswith(".mp4"):
         poster = d.get("poster_t") if variant == "thumb" and d.get("poster_t") else d["poster"]
@@ -46,9 +46,14 @@ def media(key, cls="", alt="", eager=False, variant="full", style=""):
         return (f'<video class="{cls}"{st} src="{d["src"]}" poster="{poster}" width="{d["w"]}" height="{d["h"]}" '
                 f'muted loop playsinline preload="none" data-autoplay></video>')
     f = pick(key, variant)
+    srcset = ""
+    if variant == "full":     # let the browser pick the smallest file that still looks sharp
+        opts = [(d[v]["w"], d[v]["src"]) for v in ("t", "m") if v in d] + [(d["w"], d["src"])]
+        if len(opts) > 1:
+            srcset = ' srcset="' + ", ".join(f"{u} {w}w" for w, u in opts) + f'" sizes="{sizes}"'
     load = 'fetchpriority="high"' if eager == "high" else ('' if eager else 'loading="lazy"')
     st = f' style="{style}"' if style else ""
-    return f'<img class="{cls}"{st} src="{f["src"]}" width="{d["w"]}" height="{d["h"]}" alt="{E(alt)}" {load} decoding="async">'
+    return f'<img class="{cls}"{st} src="{f["src"]}"{srcset} width="{d["w"]}" height="{d["h"]}" alt="{E(alt)}" {load} decoding="async">'
 
 def ratio(key):
     d = m(key)
@@ -343,7 +348,9 @@ def build_about():
 # --------------------------------------------------------------------------- project pages
 def duo(keys, cls=""):
     """A justified row: widths follow aspect ratios so every item in the row has the same height."""
-    items = "".join(media(k, cls, style=f"flex:{ratio_w(k):.4f} 1 0%") for k in keys)
+    tot = sum(ratio_w(k) for k in keys)
+    items = "".join(media(k, cls, style=f"flex:{ratio_w(k):.4f} 1 0%",
+                          sizes=f"(max-width: 720px) {100 * ratio_w(k) / tot:.0f}vw, {65 * ratio_w(k) / tot:.0f}vw") for k in keys)
     return f'<div class="duo">{items}</div>'
 
 def ratio_w(key):
@@ -439,11 +446,11 @@ def slideshow(keys, label):
     first = m(keys[0])
     imgs = []
     for i, k in enumerate(keys):
-        d = m(k)
+        d = m(k); f = pick(k, "hero")
         if i == 0:
-            imgs.append(f'<img class="on" src="{d["src"]}" width="{d["w"]}" height="{d["h"]}" alt="{E(label)} — spread 1" decoding="async">')
+            imgs.append(f'<img class="on" src="{f["src"]}" width="{d["w"]}" height="{d["h"]}" alt="{E(label)} — spread 1" decoding="async">')
         else:
-            imgs.append(f'<img data-src="{d["src"]}" width="{d["w"]}" height="{d["h"]}" alt="{E(label)} — spread {i+1}" decoding="async">')
+            imgs.append(f'<img data-src="{f["src"]}" width="{d["w"]}" height="{d["h"]}" alt="{E(label)} — spread {i+1}" decoding="async">')
     n = len(keys)
     return (f'<div class="slides" data-slides tabindex="0" role="group" aria-roledescription="slideshow" aria-label="{E(label)}">'
             f'<div class="stage" style="aspect-ratio:{first["w"]}/{first["h"]}">{"".join(imgs)}</div>'
@@ -509,6 +516,9 @@ PAGES["playground"] = dict(title="Playground :)", tags="Having fun...", body=lam
 def build_project(slug):
     p = PAGES[slug]
     body = title_block(p["title"], p["tags"]) + "\n" + p["body"]()
+    # Project pages load every image straight away (the files are small), the first two at high priority
+    body = body.replace(' loading="lazy"', "")
+    body = body.replace('<img class="', '<img fetchpriority="high" class="', 2) if "fetchpriority" not in body else body
     return shell(f'{p["title"]} — Avi Sahni', body, kind="project", current=slug)
 
 def main():
