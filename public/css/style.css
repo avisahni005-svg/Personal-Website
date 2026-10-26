@@ -174,7 +174,7 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
   column-gap: var(--gap);
   width: calc(var(--c2) + var(--c3));
 }
-.masonry .col { display: flex; flex-direction: column; gap: 1.4vw; }
+.masonry .col { display: flex; flex-direction: column; gap: 2.4vw; }
 .thumb { margin: 0; }
 .thumb figcaption { color: var(--mute); font-size: var(--fs-cap); margin-top: .35rem; font-weight: var(--fw-text); }
 .thumb a, .thumb span { display: block; }

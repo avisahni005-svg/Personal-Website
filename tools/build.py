@@ -110,7 +110,7 @@ def masonry(items, cols=3):
     for it in items:
         i = heights.index(min(heights))
         columns[i].append(it)
-        heights[i] += ratio(it[1]) + 0.32  # caption allowance
+        heights[i] += ratio(it[1]) + 0.37  # caption + row gap, in thumbnail widths
     return columns
 
 def thumb(cap, key, href):
@@ -160,40 +160,54 @@ HOME = [
          copy=["Primarily featuring Baby Blue and Black, the book's color scheme creates a play of light emerging from the dark. The blue emulates a clear blue sky as a symbol of freedom.",
                "Pressato is used for the headline type, which fills the page with large titles, creating visuals inspired by protest posters."],
          thumbs=[("Opening", "right-to-resist"), ("Table of Contents", "right-to-resist-1"),
-                 ("Chapter Divider", "right-to-resist-20"), ("Endnotes", "right-to-resist-65"),
-                 ("Art and Design in Rebellion", "right-to-resist-80"), ("Chapter_1", "right-to-resist-18"),
-                 ("Chapter_4", "right-to-resist-2"), ("Pull Quotes", "right-to-resist-68"),
-                 ("Chapter_3", "right-to-resist-43")]),
+                 ("Chapter Divider", "right-to-resist-20"), ("Chapter_1", "right-to-resist-18"),
+                 ("Endnotes", "right-to-resist-2"), ("Art and Design in Rebellion", "right-to-resist-43"),
+                 ("Chapter_3", "right-to-resist-65"), ("Chapter_4", "right-to-resist-80"),
+                 ("Pull Quotes", "right-to-resist-68")]),
     dict(slug="dekho", num="05", title="Dekho Magar Pyaar Se",
+         cols=[["Cover", "Table of Contents", "Motion_2"],
+               ["Motion_1", "Detail_1", "Detail_2", "Backmatter_2"],
+               ["Posters", "Chapter_1", "Backmatter_1", "Chapter_5"]],
          lead="An homage to Indian trucks and truck drivers, as these trucks were my introduction to typography and visual design. The book delves into the creation and history of truck art, the lives of truck drivers, and the connection between the drivers and the art across India.",
          tags="Publication, Posters, Motion",
          hero="aviportfoliogx-img-1739",
          copy=["During the design process, I aimed to emulate life on an Indian road, an organized chaos. The bold colors and typography are a clear homage to Indian trucks and the rich culture one experiences while traveling across India. Within the book's content, all non-English words are typeset in Hindi (India's national language), with pronunciations and definitions provided below and in the glossary at the end. This compels non-Hindi readers to take a detour while reading. This combined with the book's various layouts and complex grid, creates a reading experience akin to driving on an Indian road, where one is always alert and engaged."],
          thumbs=[("Cover", "dekho-magr-pyaar-se-2"), ("Motion_1", "freight-cargo-video"),
                  ("Posters", "free-billboard-mockup"), ("Table of Contents", "dekho-magr-pyaar-se-5"),
-                 ("Chapter_1", "215a0089"), ("Detail_1", "dekho-magr-pyaar-se-3"),
-                 ("Motion_2", "mp2-video"), ("Backmatter_1", "dekho-magr-pyaar-se-4"),
-                 ("Detail_2", "dekho-magr-pyaar-se-1"), ("Chapter_5", "215a0104-8192x5464"),
-                 ("Backmatter_2", "dekho-magr-pyaar-se")]),
+                 ("Chapter_1", "dekho-magr-pyaar-se-4"), ("Detail_1", "dekho-magr-pyaar-se-3"),
+                 ("Motion_2", "mp2-video"), ("Backmatter_1", "dekho-magr-pyaar-se"),
+                 ("Detail_2", "dekho-magr-pyaar-se-1"), ("Chapter_5", "215a0089"),
+                 ("Backmatter_2", "215a0104-8192x5464")]),
     dict(slug="playground", num="06", title="Playground :)",
+         cols=[["Limbo_Title Card", "Symbiosis_Branding Posters", "Other Futures_Event Poster", "Rathole_Letterpress Poster",
+                "Untitled_1", "Untitled_3", "Insane!Me?_Poster"],
+               ["Inklingroom_Event Poster_1", "Inklingroom_Brand Posters", "Other Futures_Brochure_1", "Other Futures_Brochure_3",
+                "Aphonik_Motion Poster", "Untitled_5"],
+               ["Seven Samurai_Movie Poster", "Inklingroom_Event Poster_2", "Other Futures_Brochure_2",
+                "Divide & Rule_Letterpress Poster", "Untitled_2", "Iksh_Packaging"]],
          lead="A collection of various projects, posters, graphic studies, photography and just having fun as a Designer and Artist.",
          tags="Having fun...",
          hero="playground-dick-2-copy",
-         copy=["Everything is a reflection of the chaos around it :)"],
+         copy=[],
          thumbs=[("Limbo_Title Card", "limbo"), ("Inklingroom_Event Poster_1", "untitled-19"),
-                 ("Seven Samurai_Movie Poster", "new-wave-poster-copy-01"), ("Inklingroom_Event Poster_2", "playground-untitled-110-copy"),
-                 ("Symbiosis_Branding Posters", "symbiosis-portfolio-image-5"), ("Inklingroom_Brand Posters", "posters-copy-2-page-0001"),
-                 ("Other Futures_Event Poster", "avi-25"), ("Other Futures_Brochure_1", "avi-26"),
-                 ("Other Futures_Brochure_2", "other-futures-portfolio-2"), ("Other Futures_Brochure_3", "avi-13"),
-                 ("Divide & Rule_Letterpress Poster", "scan-2700x3573"), ("Rathole_Letterpress Poster", "scan-2406x2977"),
-                 ("Aphonik_Motion Poster", "aphonik-video"), ("Untitled_1", "posters-under-the-bridge-copy-2"),
-                 ("Untitled_2", "free-poster-set-mockup-2"), ("Untitled_3", "gravity-cardboard-boxes-mockup"),
-                 ("Untitled_4", "img-0757-5472x3648"), ("Untitled_5", "img-0294")]),
+                 ("Seven Samurai_Movie Poster", "free-poster-set-mockup-2"), ("Symbiosis_Branding Posters", "digital-billboard-mockup"),
+                 ("Inklingroom_Event Poster_2", "posters-copy-2-page-0001"), ("Other Futures_Event Poster", "new-wave-poster-copy-01"),
+                 ("Inklingroom_Brand Posters", "posters-under-the-bridge-copy-2"), ("Other Futures_Brochure_1", "avi-13"),
+                 ("Other Futures_Brochure_2", "avi-26"), ("Other Futures_Brochure_3", "avi-25"),
+                 ("Rathole_Letterpress Poster", "scan-2406x2977"), ("Divide & Rule_Letterpress Poster", "scan-2700x3573"),
+                 ("Aphonik_Motion Poster", "aphonik-video"), ("Untitled_2", "img-0309"),
+                 ("Untitled_1", "img-0294"), ("Untitled_5", "img-0582"),
+                 ("Untitled_3", "img-0757-5472x3648"), ("Insane!Me?_Poster", "10-copy-4"),
+                 ("Iksh_Packaging", "gravity-cardboard-boxes-mockup")]),
 ]
 
 def home_section(p):
     href = f'{p["slug"]}.html'
-    cols = masonry([(c, k) for c, k in p["thumbs"]])
+    if p.get("cols"):                      # column layout copied from the Cargo site
+        by_cap = dict(p["thumbs"])
+        cols = [[(c, by_cap[c]) for c in col] for col in p["cols"]]
+    else:
+        cols = masonry([(c, k) for c, k in p["thumbs"]])
     colhtml = "".join(
         '<div class="col">' + "".join(thumb(c, k, href) for c, k in col) + "</div>" for col in cols
     )
@@ -374,7 +388,7 @@ PAGES["rah"] = dict(title="Royal Albert Hall", tags="Branding, Creative Directio
 ]))
 
 PAGES["hyperyouth"] = dict(title="Hyperyouth", tags="Generative design, Branding", body=lambda: "\n".join([
-    lead_sec("hyperyouth"), pair_or_full(["avi-portfolio", "hy-motion-1", "hy-motion-2", "hyperyouth-hystage", "hyperyouth-hy-banner", "hyperyouth-vnhy", "hy-code-demo", "10-copy-4"]),
+    lead_sec("hyperyouth"), pair_or_full(["avi-portfolio", "hy-motion-1", "hy-motion-2", "hyperyouth-hystage", "hyperyouth-hy-banner", "hyperyouth-vnhy", "hy-code-demo"]),
     copy_sec("hyperyouth"),
 ]))
 
