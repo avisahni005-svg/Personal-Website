@@ -65,14 +65,11 @@ def paras(texts):
 # --------------------------------------------------------------------------- shell
 def shell(title, body, *, kind, current=None, desc="Avi Sahni — graphic designer working across branding, typography and creative coding."):
     cls = f"{kind}"
-    if kind == "home":
-        top_link = '<a class="about-link" href="about.html">↗ About</a>'
-        first = '<a href="about.html">About</a>'
-    else:
-        top_link = ""
-        first = '<a href="index.html">Home</a>' if kind == "about" else '<a href="about.html">About</a>'
-    if kind == "about":
-        first = '<a href="index.html">Home</a>'
+    top_link = '<a class="about-link" href="about.html">↗ About</a>' if kind == "home" else ""
+    # the same Contents on every page; the current page is marked
+    home_a = f'<a href="index.html"{" aria-current=page" if kind == "home" else ""}>Home</a>'
+    about_a = f'<a href="about.html"{" aria-current=page" if kind == "about" else ""}>About</a>'
+    first = home_a + about_a
     nav_items = "".join(
         f'<a href="{s}.html"{" aria-current=page" if s == current else ""}>{E(n)}</a>' for s, n in NAV
     )
