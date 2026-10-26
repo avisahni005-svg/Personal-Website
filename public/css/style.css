@@ -330,3 +330,6 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 .thumb a:hover img, .thumb a:hover video, .hero:hover img, .hero:hover video,
 .thumb a:focus-visible img, .hero:focus-visible img { opacity: .78; }
 a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* the two STFC logo animations are black on white: show them white on black */
+video.invert, img.invert { filter: invert(1); background: #fff; }

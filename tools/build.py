@@ -367,7 +367,7 @@ def sec(label, text, inner):
     return f'<section class="psec"><div class="ptext">{t}</div><div class="pmedia">{inner}</div></section>'
 
 def title_block(title, tags):
-    return f'<div class="title-gap"></div><h1 class="big ptitle">{E(title)}</h1><hr class="rule"><p class="ptags">{E(tags)}</p>'
+    return f'<div class="title-gap"></div><h1 class="big ptitle">{E(title)}</h1><hr class="rule">'
 
 PAGES = {}
 
@@ -375,7 +375,7 @@ PAGES = {}
 PAGES["stfc"] = dict(title="Street Football Club", tags="Branding, Motion, Creative Direction", body=lambda: "\n".join([
     sec("Logo Development",
         "The exploration for the main logo was divided in 2 rough categories: Badges and Typographic. The idea was to create a visual that captures the speed and chaos of the brand but also harkens back to football and street culture.",
-        f'<div class="duo">{media("typographic")}{media("badges")}</div>'),
+        f'<div class="duo">{media("typographic", cls="invert")}{media("badges", cls="invert")}</div>'),
     f'<div class="full">{media("aug-27-screenshot-from-aviportfoliogx")}</div>',
     sec("Core Branding",
         "The utilitarian look is for the base that shall create contrast between the identities for the cities. The green and grey are inspired by asphalt and moss as seen on the streets.",
