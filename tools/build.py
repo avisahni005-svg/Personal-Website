@@ -286,9 +286,11 @@ SKILLS = [
     ("Familiar with", "Framer, Glyphs 4, SolidWorks, Blender, KeyShot, and TouchOSC"),
     ("Skills", "Brand Identity, Typography, Editorial Design, Motion Design, Print Production, Spatial Graphics, Creative Coding, Photography, and Film Production"),
 ]
-ABOUT_PHOTOS = ["avi-sahni-portfolio-image", "avi-sahni-portfolio-image-4", "avi-sahni-portfolio-image-9",
-                "avi-sahni-portfolio-image-2", "avi-sahni-portfolio-image-1", "avi-sahni-portfolio-image-3",
-                "avi-sahni-portfolio-image-10", "avi-sahni-portfolio-dsc-0186"]
+ABOUT_COLS = [  # column layout copied from the Cargo About page
+    ["avi-sahni-portfolio-image-1", "about-a", "avi-sahni-portfolio-image-2", "about-c"],
+    ["avi-sahni-portfolio-image-3", "about-b", "avi-sahni-portfolio-image-4", "other-futures-portfolio-2"],
+    ["avi-sahni-portfolio-image-10", "avi-sahni-portfolio-dsc-0186", "avi-sahni-portfolio-image-9", "symbiosis-portfolio-image-5"],
+]
 ABOUT_BLURB = ("I like making things :) A journey through fine art, photography, film, and more has led me to graphic design. "
                "For me, it's a platform to express myself as an artist while continuing to bring others' visions to life. "
                "My design philosophy is total immersion in the project, becoming one with the history, culture, and context "
@@ -306,8 +308,7 @@ def entry(e):
     return h + "</div>"
 
 def build_about():
-    cols = masonry([("", k) for k in ABOUT_PHOTOS])
-    photos = "".join('<div class="col">' + "".join(thumb(c, k, "#") .replace('<a href="#">', '<span>').replace("</a>", "</span>") for c, k in col) + "</div>" for col in cols)
+    photos = "".join('<div class="col">' + "".join(thumb("", k, "#").replace('<a href="#">', '<span>').replace("</a>", "</span>") for k in col) + "</div>" for col in ABOUT_COLS)
     rows = ""
     for label, entries in RESUME:
         rows += f'<section class="rrow"><h3>{E(label)}</h3><div>{"".join(entry(e) for e in entries)}</div></section>'
@@ -321,7 +322,7 @@ def build_about():
   <p class="lead">{E(PROFILE[0])}<br><span class="ind">{E(PROFILE[1])}</span></p>
 </div>
 <div class="wide">{media("ffea1552-cc6b-43ba-bbca-f2bf9564a1c2", alt="Avi Sahni on set beside a film camera", eager="high", variant="hero")}</div>
-<div class="trow about-photos"><p class="tags"></p><div class="masonry">{photos}</div><div class="copy"><p>{E(ABOUT_BLURB)}</p></div></div>
+<div class="trow about-photos"><p class="tags">The sneak peek!</p><div class="masonry">{photos}</div><div class="copy"><p>{E(ABOUT_BLURB)}</p></div></div>
 {rows}'''
     return shell("About — Avi Sahni", body, kind="about")
 

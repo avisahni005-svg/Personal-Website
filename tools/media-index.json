@@ -6184,5 +6184,35 @@
 "h": 650,
 "poster": "media/video/hy-code-demo-poster.webp",
 "poster_t": "media/video/hy-code-demo-poster-t.webp"
+},
+"about-a": {
+"src": "media/cargo/about-a.webp",
+"w": 1800,
+"h": 1350,
+"t": {
+"src": "media/cargo/about-a-t.webp",
+"w": 560,
+"h": 420
+}
+},
+"about-b": {
+"src": "media/cargo/about-b.webp",
+"w": 1800,
+"h": 1350,
+"t": {
+"src": "media/cargo/about-b-t.webp",
+"w": 560,
+"h": 420
+}
+},
+"about-c": {
+"src": "media/cargo/about-c.webp",
+"w": 1500,
+"h": 2000,
+"t": {
+"src": "media/cargo/about-c-t.webp",
+"w": 560,
+"h": 747
+}
 }
 }
