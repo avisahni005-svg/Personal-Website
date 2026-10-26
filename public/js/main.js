@@ -136,12 +136,22 @@
       card.style.top = Math.random() * Math.max(0, sh - h) + "px";
     };
     const front = (card) => { card.style.zIndex = ++z; };
-    const make = (it) => {
+    // Every image is fetched and decoded ahead of time, so a card only appears once it is ready to show.
+    const ready = items.map((it) => {
+      if (it.v) {
+        return new Promise((res) => {
+          const v = document.createElement("video");
+          v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true; v.preload = "auto"; v.src = it.s;
+          v.addEventListener("loadeddata", () => res(v), { once: true });
+          setTimeout(() => res(v), 3000);
+        });
+      }
+      const im = new Image(); im.alt = ""; im.draggable = false; im.src = it.s;
+      return (im.decode ? im.decode() : new Promise((r) => { im.onload = r; })).catch(() => {}).then(() => im);
+    });
+    const make = (it, el) => {
       const card = document.createElement("div");
       card.className = "pg-card pop";
-      let el;
-      if (it.v) { el = document.createElement("video"); el.src = it.s; el.muted = true; el.loop = true; el.autoplay = true; el.playsInline = true; }
-      else { el = document.createElement("img"); el.src = it.s; el.alt = ""; el.draggable = false; }
       card.appendChild(el);
       card.addEventListener("pointerdown", (e) => {
         if (e.button !== undefined && e.button !== 0) return;
@@ -159,13 +169,16 @@
       });
       return card;
     };
-    const next = () => {
+    const next = async () => {
       if (!items.length) return;
       if (!bag.length) refill();
-      const it = items[bag.pop()];
+      const k = bag.pop(), it = items[k];
+      const src = await ready[k];
+      const el = src.cloneNode(true);                  // a fresh element each time, so recycled images can come round again
+      if (it.v) { el.muted = true; el.loop = true; el.autoplay = true; el.playsInline = true; el.play && el.play().catch(() => {}); }
       let card;
       if (cards.length >= items.length) { card = cards.shift(); stage.removeChild(card); }   // all shown once: recycle the oldest
-      card = make(it);
+      card = make(it, el);
       place(card, it); front(card); stage.appendChild(card); cards.push(card);
     };
     refill();
@@ -175,7 +188,5 @@
       e.preventDefault(); if (!e.repeat) next();
     });
     stage.addEventListener("click", (e) => { if (e.target === stage && window.matchMedia("(pointer: coarse)").matches) next(); });
-    // warm the cache so the first presses are instant
-    items.slice(0, 6).forEach((it) => { if (!it.v) { const im = new Image(); im.src = it.s; } });
   }
 })();
