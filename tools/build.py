@@ -523,7 +523,7 @@ DEKHO_SLIDES = ["dekho-215a0010", "dekho-215a0012", "dekho-215a0020", "dekho-215
 PAGES["dekho"] = dict(title="Dekho Magar Pyaar Se", tags="Publication, Posters, Motion", body=lambda: "\n".join([
     # process photos first, then the rows of the original Cargo page
     sec("", next(x for x in HOME if x["slug"] == "dekho")["lead"],
-        duo(["dekho-dekho-magar-pyaar-se", "dekho-jan-21-screenshot-from-avi-sahni"])),
+        full("dekho-jan-21-screenshot-from-avi-sahni")),
     duo(["dekho-jan-21-screenshot-from-avi-sahni-1", "dekho-jan-21-screenshot-from-avi-sahni-2"]),
     full("aviportfoliogx-img-1739"),
     duo(["dekho-215a0102", "dekho-215a0120"]),
