@@ -206,10 +206,10 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 .psec .ptext h3 { margin-bottom: 0; }
 .psec .ptext p + p { text-indent: 1.1rem; }
 .pmedia { min-width: 0; }
-.psec + .full, .psec + .duo { margin-top: 1vw; }
 .full, .duo, .half { margin-bottom: var(--gap); }
 .full img, .full video { width: 100%; }
-.duo { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: start; }
+.duo { display: flex; gap: var(--gap); align-items: flex-start; }
+.duo > img, .duo > video { min-width: 0; width: auto; }
 .half { width: calc(50% - var(--gap) / 2); }
 .pmedia .duo { margin-bottom: 0; }
 
@@ -304,7 +304,7 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 .slides .arrows button:hover { opacity: .5; }
 .full > .slides { width: 100%; }
 .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); margin-bottom: var(--gap); align-items: start; }
-.psec { margin-bottom: 2.4vw; }
+.psec { margin-bottom: var(--gap); }
 @media (max-width: 720px) { .trio { gap: 8px; } .psec { margin-bottom: 28px; } }
 .psec .ptext p.b { text-indent: 0; }
 .psec .ptext p.b + p { text-indent: 0; margin-top: .5rem; }

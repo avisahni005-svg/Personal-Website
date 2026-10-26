@@ -38,15 +38,17 @@ def pick(key, variant):
     v = {"thumb": "t", "hero": "m", "side": "s"}.get(variant)
     return d[v] if v and v in d else d
 
-def media(key, cls="", alt="", eager=False, variant="full"):
+def media(key, cls="", alt="", eager=False, variant="full", style=""):
     d = m(key)
     if d["src"].endswith(".mp4"):
         poster = d.get("poster_t") if variant == "thumb" and d.get("poster_t") else d["poster"]
-        return (f'<video class="{cls}" src="{d["src"]}" poster="{poster}" width="{d["w"]}" height="{d["h"]}" '
+        st = f' style="{style}"' if style else ""
+        return (f'<video class="{cls}"{st} src="{d["src"]}" poster="{poster}" width="{d["w"]}" height="{d["h"]}" '
                 f'muted loop playsinline preload="none" data-autoplay></video>')
     f = pick(key, variant)
     load = 'fetchpriority="high"' if eager == "high" else ('' if eager else 'loading="lazy"')
-    return f'<img class="{cls}" src="{f["src"]}" width="{d["w"]}" height="{d["h"]}" alt="{E(alt)}" {load} decoding="async">'
+    st = f' style="{style}"' if style else ""
+    return f'<img class="{cls}"{st} src="{f["src"]}" width="{d["w"]}" height="{d["h"]}" alt="{E(alt)}" {load} decoding="async">'
 
 def ratio(key):
     d = m(key)
@@ -339,6 +341,15 @@ def build_about():
     return shell("About — Avi Sahni", body, kind="about")
 
 # --------------------------------------------------------------------------- project pages
+def duo(keys, cls=""):
+    """A justified row: widths follow aspect ratios so every item in the row has the same height."""
+    items = "".join(media(k, cls, style=f"flex:{ratio_w(k):.4f} 1 0%") for k in keys)
+    return f'<div class="duo">{items}</div>'
+
+def ratio_w(key):
+    d = m(key)
+    return d["w"] / d["h"]
+
 def pair_or_full(keys):
     """Lay out a run of media: landscape -> full width, portraits/squares pair up."""
     out, buf = [], []
@@ -346,7 +357,7 @@ def pair_or_full(keys):
         while buf:
             if len(buf) >= 2:
                 a, b = buf.pop(0), buf.pop(0)
-                out.append(f'<div class="duo">{media(a)}{media(b)}</div>')
+                out.append(duo([a, b]))
             else:
                 a = buf.pop(0)
                 out.append(f'<div class="half">{media(a)}</div>')
@@ -375,15 +386,16 @@ PAGES = {}
 PAGES["stfc"] = dict(title="Street Football Club", tags="Branding, Motion, Creative Direction", body=lambda: "\n".join([
     sec("Logo Development",
         "The exploration for the main logo was divided in 2 rough categories: Badges and Typographic. The idea was to create a visual that captures the speed and chaos of the brand but also harkens back to football and street culture.",
-        f'<div class="duo">{media("typographic", cls="invert")}{media("badges", cls="invert")}</div>'),
+        duo(["typographic", "badges"], cls="invert")),
     f'<div class="full">{media("aug-27-screenshot-from-aviportfoliogx")}</div>',
     sec("Core Branding",
         "The utilitarian look is for the base that shall create contrast between the identities for the cities. The green and grey are inspired by asphalt and moss as seen on the streets.",
-        f'<div class="duo">{media("stfc-aviportfoliogx-1")}{media("stfc-free-poster-mockup-4")}</div>'),
+        f'<div class="full">{media("stfc-hero-video")}</div>'),
+    duo(["stfc-aviportfoliogx-1", "stfc-free-poster-mockup-4"]),
     f'<div class="full">{media("stfc-305-copy-8")}</div>',
     sec("City Branding",
         "Each city got a unique identity, with typography and colors that show the vibrance and chaos of the football scene in each city.",
-        f'<div class="duo">{media("cities")}{media("motion-video")}</div>'),
+        duo(["cities", "motion-video"])),
     pair_or_full(["stfc-3artboard-26", "stfc-insta", "stfc-arena", "stfc-poster", "stfc-austin-poster",
                   "stfc-arena-2", "stfc-3artboard-26-copy", "stfc-arena-3", "stfc-img-2962"]),
 ]))
