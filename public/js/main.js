@@ -69,6 +69,23 @@
       const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { load(1); load(2); load(3); io.disconnect(); } }, { rootMargin: "2000px 0px" });
       io.observe(root);
     }
+
+    // Auto-cycle: one slide per second while the slideshow is on screen, paused while the pointer is over it.
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduce) {
+      let hover = false, visible = false, timer = null;
+      const tick = () => { if (!hover && visible && !document.hidden) go(i + 1); };
+      const start = () => { clearInterval(timer); timer = setInterval(tick, 1000); };
+      root.addEventListener("mouseenter", () => { hover = true; });
+      root.addEventListener("mouseleave", () => { hover = false; start(); });
+      root.addEventListener("click", start);          // restart the 1s clock after a manual change
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver((es) => { visible = es[0].isIntersecting; }, { threshold: 0.25 }).observe(root);
+      } else {
+        visible = true;
+      }
+      start();
+    }
   });
 
   // Unmute buttons (Hyperyouth). Videos always start muted; only one plays sound at a time.
