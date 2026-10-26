@@ -393,6 +393,7 @@ PAGES["stfc"] = dict(title="Street Football Club", tags="Branding, Motion, Creat
         f'<div class="full">{media("stfc-hero-video")}</div>'),
     duo(["stfc-aviportfoliogx-1", "stfc-free-poster-mockup-4"]),
     f'<div class="full">{media("stfc-305-copy-8")}</div>',
+    f'<div class="full">{media("stfc-laptop-large")}</div>',
     sec("City Branding",
         "Each city got a unique identity, with typography and colors that show the vibrance and chaos of the football scene in each city.",
         duo(["cities", "motion-video"])),

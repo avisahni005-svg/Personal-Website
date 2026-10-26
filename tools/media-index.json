@@ -6214,5 +6214,11 @@
 "w": 560,
 "h": 747
 }
+},
+"stfc-laptop-large": {
+"src": "media/video/stfc-laptop-large.mp4",
+"w": 1280,
+"h": 720,
+"poster": "media/video/stfc-laptop-large-poster.webp"
 }
 }
