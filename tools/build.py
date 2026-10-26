@@ -24,6 +24,7 @@ PROFILE = [
 ]
 
 MISSING = set()
+AUDIO_PAGE = False        # Hyperyouth only: its videos get an unmute button
 
 # --------------------------------------------------------------------------- media
 def m(key):
@@ -42,6 +43,14 @@ def media(key, cls="", alt="", eager=False, variant="full", style="", sizes="(ma
     d = m(key)
     if d["src"].endswith(".mp4"):
         poster = d.get("poster_t") if variant == "thumb" and d.get("poster_t") else d["poster"]
+        if AUDIO_PAGE and d.get("audio"):
+            st = f' style="{style}"' if style else ""
+            return (f'<div class="vwrap"{st}><video class="{cls}" src="{d["audio"]}" poster="{poster}" width="{d["w"]}" height="{d["h"]}" '
+                    f'muted loop playsinline preload="none" data-autoplay data-audio></video>'
+                    f'<button type="button" class="unmute" data-unmute aria-pressed="false" aria-label="Unmute video">'
+                    f'<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path class="spk" d="M3 9v6h4l5 4V5L7 9H3z"/>'
+                    f'<path class="wave" d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'
+                    f'<path class="slash" d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>')
         st = f' style="{style}"' if style else ""
         return (f'<video class="{cls}"{st} src="{d["src"]}" poster="{poster}" width="{d["w"]}" height="{d["h"]}" '
                 f'muted loop playsinline preload="none" data-autoplay></video>')
@@ -529,7 +538,10 @@ PAGES["playground"] = dict(title="Playground :)", tags="Having fun...", body=lam
 
 def build_project(slug):
     p = PAGES[slug]
+    global AUDIO_PAGE
+    AUDIO_PAGE = slug == "hyperyouth"
     body = title_block(p["title"], p["tags"]) + "\n" + p["body"]()
+    AUDIO_PAGE = False
     # Project pages load every image straight away (the files are small), the first two at high priority
     body = body.replace(' loading="lazy"', "")
     body = body.replace('<img class="', '<img fetchpriority="high" class="', 2) if "fetchpriority" not in body else body

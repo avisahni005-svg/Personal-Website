@@ -70,4 +70,21 @@
       io.observe(root);
     }
   });
+
+  // Unmute buttons (Hyperyouth). Videos always start muted; only one plays sound at a time.
+  const btns = document.querySelectorAll("[data-unmute]");
+  btns.forEach((btn) => {
+    const v = btn.parentElement.querySelector("video");
+    btn.addEventListener("click", () => {
+      const on = v.muted;                       // currently muted -> turn sound on
+      document.querySelectorAll("video[data-audio]").forEach((o) => { o.muted = true; });
+      btns.forEach((b) => { b.setAttribute("aria-pressed", "false"); b.setAttribute("aria-label", "Unmute video"); });
+      if (on) {
+        v.muted = false;
+        btn.setAttribute("aria-pressed", "true");
+        btn.setAttribute("aria-label", "Mute video");
+        v.play().catch(() => {});
+      }
+    });
+  });
 })();

@@ -336,3 +336,20 @@ video.invert, img.invert { filter: invert(1); background: #fff; }
 
 /* a section that starts with a rule (text sits close under it, the media above sits a little further away) */
 .psec.ruled { border-top: 1px solid var(--ink); margin-top: var(--rule-above); padding-top: var(--rule-below); }
+
+/* Hyperyouth: videos autoplay muted; a small speaker button in the bottom-left turns sound on */
+.vwrap { position: relative; display: block; min-width: 0; }
+.vwrap > video { width: 100%; }
+.unmute {
+  position: absolute; left: .7rem; bottom: .7rem; width: 2.1rem; height: 2.1rem;
+  display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%;
+  background: rgba(0, 0, 0, .55); color: #fff; cursor: pointer;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  transition: background .15s;
+}
+.unmute:hover { background: rgba(0, 0, 0, .8); }
+.unmute svg { width: 1.2rem; height: 1.2rem; }
+.unmute .spk { fill: currentColor; }
+.unmute .wave { display: none; }
+.unmute[aria-pressed="true"] .wave { display: block; }
+.unmute[aria-pressed="true"] .slash { display: none; }

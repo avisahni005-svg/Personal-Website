@@ -6169,21 +6169,24 @@
 "w": 720,
 "h": 720,
 "poster": "media/video/hy-motion-1-poster.webp",
-"poster_t": "media/video/hy-motion-1-poster-t.webp"
+"poster_t": "media/video/hy-motion-1-poster-t.webp",
+"audio": "media/video/hy-motion-1-audio.mp4"
 },
 "hy-motion-2": {
 "src": "media/video/hy-motion-2.mp4",
 "w": 1000,
 "h": 512,
 "poster": "media/video/hy-motion-2-poster.webp",
-"poster_t": "media/video/hy-motion-2-poster-t.webp"
+"poster_t": "media/video/hy-motion-2-poster-t.webp",
+"audio": "media/video/hy-motion-2-audio.mp4"
 },
 "hy-code-demo": {
 "src": "media/video/hy-code-demo.mp4",
 "w": 1000,
 "h": 650,
 "poster": "media/video/hy-code-demo-poster.webp",
-"poster_t": "media/video/hy-code-demo-poster-t.webp"
+"poster_t": "media/video/hy-code-demo-poster-t.webp",
+"audio": "media/video/hy-code-demo-audio.mp4"
 },
 "about-a": {
 "src": "media/cargo/about-a.webp",
