@@ -189,4 +189,14 @@
     });
     stage.addEventListener("click", (e) => { if (e.target === stage && window.matchMedia("(pointer: coarse)").matches) next(); });
   }
+
+  // Mobile sticky header: shrink it once the page has scrolled a little
+  const mast = document.querySelector(".mast");
+  if (mast) {
+    const mq = window.matchMedia("(max-width: 720px)");
+    const upd = () => mast.classList.toggle("compact", mq.matches && window.scrollY > 60);
+    window.addEventListener("scroll", upd, { passive: true });
+    mq.addEventListener && mq.addEventListener("change", upd);
+    upd();
+  }
 })();

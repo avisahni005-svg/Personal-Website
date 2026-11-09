@@ -251,7 +251,12 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
   .mast { position: absolute; height: auto; }
   .wordmark { position: static; display: block; margin: 12px var(--m) 0; width: calc(100vw - 24px); }
   .home .wordmark { width: calc(100vw - 24px); }
-  .mast { position: static; mix-blend-mode: normal; color: var(--ink); padding: 0 var(--m) 14px; pointer-events: auto; }
+  /* sticky header: full size at the top of the page, shrinks to just the wordmark once you scroll */
+  .mast { position: sticky; top: 0; z-index: 50; background: #fff; mix-blend-mode: normal; color: var(--ink); padding: 0 var(--m) 14px; pointer-events: auto; transition: padding .2s; }
+  .mast.compact { padding-bottom: 8px; }
+  .mast.compact .wordmark, .home .mast.compact .wordmark { width: 34vw; margin-top: 8px; }
+  .mast.compact .role, .mast.compact .tagline, .mast.compact .contact, .mast.compact .about-link { display: none; }
+  .wordmark { transition: width .2s; }
   .wordmark { mix-blend-mode: exclusion; }
   .role, .tagline, .contact, .about-link, .home .about-link, .home .contact { position: static; display: block; margin-top: 10px; }
   .home .about-link { margin-top: 12px; }
