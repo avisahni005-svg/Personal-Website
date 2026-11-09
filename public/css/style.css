@@ -265,6 +265,7 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
   .intro-gap { height: 36px; }
   .title-gap { height: 36px; }
   .num, .big { margin-bottom: 8px; }
+  .phead .num { display: none; }      /* home page: no big section numbers on phones */
   .phead, .trow, .about-head, .psec, .rrow, .foot { display: block; }
   .phead h2 { margin: 6px 0; }
   .phead .lead { margin-bottom: 14px; }
