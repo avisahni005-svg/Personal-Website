@@ -249,9 +249,14 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 @media (max-width: 720px) {
   :root { --fs-base: 13.86px; --fs-head: 3.0909rem; --m: 12px; }
   .mast { position: absolute; height: auto; }
-  .wordmark { position: static; display: block; margin: 12px var(--m) 0; width: calc(100vw - 24px); }
-  .home .wordmark { width: calc(100vw - 24px); }
-  .mast { position: static; mix-blend-mode: normal; color: var(--ink); padding: 0 var(--m) 14px; pointer-events: auto; }
+  .wordmark { position: static; display: block; margin: 12px 0 0; width: 100%; }
+  .home .wordmark { width: 100%; }
+  /* sticky header: full size at the top of the page, shrinks to just the wordmark once you scroll */
+  .mast { position: sticky; top: 0; z-index: 50; background: #fff; mix-blend-mode: normal; color: var(--ink); padding: 0 var(--m) 14px; pointer-events: auto; transition: padding .2s; }
+  .mast.compact { padding-bottom: 8px; }
+  .mast.compact .wordmark, .home .mast.compact .wordmark { width: 34vw; margin-top: 8px; }
+  .mast.compact .role, .mast.compact .tagline, .mast.compact .contact, .mast.compact .about-link { display: none; }
+  .wordmark { transition: width .2s; }
   .wordmark { mix-blend-mode: exclusion; }
   .role, .tagline, .contact, .about-link, .home .about-link, .home .contact { position: static; display: block; margin-top: 10px; }
   .home .about-link { margin-top: 12px; }
@@ -383,3 +388,7 @@ hr.sep { border: 0; border-top: 1px solid var(--ink); width: 100%; margin: var(-
 @keyframes pgpop { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .pg-card.pop { animation: none; } }
 @media (max-width: 720px) { .pg-stage { height: 70vh; margin-bottom: 20px; } }
+
+/* the wordmark is a link home on every page; the link adds no box of its own */
+.wm-a { display: contents; }
+.wm-a img { cursor: pointer; }
