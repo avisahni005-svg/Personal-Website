@@ -123,13 +123,12 @@ def shell(title, body, *, kind, current=None, extra_cls="", desc="Avi Sahni — 
 </head>
 <body class="{cls}">
 <header class="mast">
-  <img class="wordmark" src="img/wordmark.png" width="2000" height="515" alt="Avi Sahni">
+  <a class="wm-a" href="index.html" aria-label="Avi Sahni, home"><img class="wordmark" src="img/wordmark.png" width="2000" height="515" alt="Avi Sahni"></a>
   <p class="role">Graphic Designer</p>
   <p class="tagline">Branding, Typography &amp; Creative Coding</p>
   <p class="contact"><b>(M)</b> <a href="mailto:hello@avisahni.design">hello@avisahni.design</a><br><b>(IG)</b> <a href="https://www.instagram.com/avisahni.design/" rel="noopener">avisahni.design</a></p>
   {top_link}
 </header>
-<a class="wm-link" href="index.html" aria-label="Home"></a>
 <main>
 {body}
 <footer class="foot">
