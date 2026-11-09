@@ -187,7 +187,13 @@
       const t = e.target; if (t && /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(t.tagName)) return;
       e.preventDefault(); if (!e.repeat) next();
     });
-    stage.addEventListener("click", (e) => { if (e.target === stage && window.matchMedia("(pointer: coarse)").matches) next(); });
+    // Touch screens: a tap anywhere (except on a link, button or an image being dragged) drops the next image
+    const touch = window.matchMedia("(pointer: coarse), (hover: none)");
+    document.addEventListener("click", (e) => {
+      if (!touch.matches) return;
+      if (e.target.closest && e.target.closest("a, button, .pg-card")) return;
+      next();
+    });
   }
 
   // Mobile sticky header: shrink it once the page has scrolled a little

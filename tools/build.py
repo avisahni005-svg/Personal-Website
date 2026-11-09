@@ -24,6 +24,13 @@ PROFILE = [
 ]
 
 MISSING = set()
+
+def _ver(path):
+    import hashlib
+    return hashlib.md5(open(os.path.join(ROOT, "public", path), "rb").read()).hexdigest()[:8]
+
+# a changed stylesheet/script gets a new URL, so phones never keep serving an old copy
+ASSET_V = {"css": _ver("css/style.css"), "js": _ver("js/main.js")}
 AUDIO_PAGE = False        # Hyperyouth only: its videos get an unmute button
 
 # --------------------------------------------------------------------------- media
@@ -118,8 +125,8 @@ def shell(title, body, *, kind, current=None, extra_cls="", desc="Avi Sahni — 
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preload" href="fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="img/wordmark.png" as="image" fetchpriority="high">{side_preload}
-<link rel="stylesheet" href="css/style.css">
-<script src="js/main.js" defer></script>
+<link rel="stylesheet" href="css/style.css?v={ASSET_V["css"]}">
+<script src="js/main.js?v={ASSET_V["js"]}" defer></script>
 </head>
 <body class="{cls}">
 <header class="mast">
@@ -396,7 +403,11 @@ def sec(label, text, inner, ruled=False):
     return f'<section class="{cls}"><div class="ptext">{t}</div><div class="pmedia">{inner}</div></section>'
 
 def title_block(title, tags):
-    return f'<div class="title-gap"></div><h1 class="big ptitle">{E(title)}</h1><hr class="rule">'
+    if title.startswith("Playground"):
+        h = 'Playground :) <span class="pg-key">Press the spacebar.</span><span class="pg-tap">Tap your screen.</span>'
+    else:
+        h = E(title)
+    return f'<div class="title-gap"></div><h1 class="big ptitle">{h}</h1><hr class="rule">'
 
 PAGES = {}
 
