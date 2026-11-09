@@ -394,3 +394,7 @@ hr.sep { border: 0; border-top: 1px solid var(--ink); width: 100%; margin: var(-
 /* the wordmark is a link home on every page; the link adds no box of its own */
 .wm-a { display: contents; }
 .wm-a img { cursor: pointer; }
+
+/* Playground heading: spacebar on keyboards, tap on touch screens (phones and iPads) */
+.pg-tap { display: none; }
+@media (pointer: coarse), (hover: none) { .pg-key { display: none; } .pg-tap { display: inline; } }
