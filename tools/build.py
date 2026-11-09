@@ -270,7 +270,6 @@ def home_section(p):
   <div class="trow">
     <p class="tags">{E(p["tags"])}</p>
     <div class="masonry">{colhtml}</div>
-    <div class="copy">{paras(p["copy"])}<a class="more" href="{href}">↗ See More</a></div>
   </div>
 </section>'''
 

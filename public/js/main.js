@@ -3,23 +3,36 @@
   const vids = document.querySelectorAll("video[data-autoplay]");
   // Start fetching videos only after the page's images have arrived, so they never compete with them.
   const whenLoaded = (fn) => (document.readyState === "complete" ? fn() : window.addEventListener("load", fn, { once: true }));
+  const live = new Set();                      // videos currently near the viewport
+  const tryPlay = (v) => {
+    v.muted = true; v.defaultMuted = true; v.playsInline = true;
+    v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("webkit-playsinline", "");
+    if (v.preload === "none") v.preload = "auto";
+    const p = v.play();
+    if (p && p.catch) p.catch(() => {});       // blocked (e.g. iOS Low Power Mode): retried on the next touch
+  };
   whenLoaded(() => {
-  if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        const v = e.target;
-        if (e.isIntersecting) {
-          if (v.preload === "none") v.preload = "auto";
-          v.play().catch(() => {});
-        } else {
-          v.pause();
+    vids.forEach((v) => {
+      v.muted = true; v.defaultMuted = true; v.playsInline = true;
+      v.addEventListener("canplay", () => { if (live.has(v) && v.paused) tryPlay(v); });
+      v.addEventListener("click", () => { if (v.paused) tryPlay(v); });      // tap a still video to start it
+    });
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          const v = e.target;
+          if (e.isIntersecting) { live.add(v); tryPlay(v); }
+          else { live.delete(v); v.pause(); }
         }
-      }
-    }, { rootMargin: "1500px 0px" });
-    vids.forEach((v) => io.observe(v));
-  } else {
-    vids.forEach((v) => v.play().catch(() => {}));
-  }
+      }, { rootMargin: "300px 0px" });
+      vids.forEach((v) => io.observe(v));
+    } else {
+      vids.forEach((v) => { live.add(v); tryPlay(v); });
+    }
+    // Phones that refuse autoplay allow it after a touch: any tap or swipe end starts the videos in view.
+    ["touchend", "pointerup", "keydown"].forEach((t) =>
+      window.addEventListener(t, () => live.forEach((v) => { if (v.paused) tryPlay(v); }), { passive: true })
+    );
   });
 
   document.querySelectorAll("[data-top]").forEach((a) =>
