@@ -249,8 +249,8 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 @media (max-width: 720px) {
   :root { --fs-base: 13.86px; --fs-head: 3.0909rem; --m: 12px; }
   .mast { position: absolute; height: auto; }
-  .wordmark { position: static; display: block; margin: 12px var(--m) 0; width: calc(100vw - 24px); }
-  .home .wordmark { width: calc(100vw - 24px); }
+  .wordmark { position: static; display: block; margin: 12px 0 0; width: 100%; }
+  .home .wordmark { width: 100%; }
   /* sticky header: full size at the top of the page, shrinks to just the wordmark once you scroll */
   .mast { position: sticky; top: 0; z-index: 50; background: #fff; mix-blend-mode: normal; color: var(--ink); padding: 0 var(--m) 14px; pointer-events: auto; transition: padding .2s; }
   .mast.compact { padding-bottom: 8px; }
