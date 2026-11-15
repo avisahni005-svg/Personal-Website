@@ -133,7 +133,7 @@ def shell(title, body, *, kind, current=None, extra_cls="", desc="Avi Sahni — 
   <a class="wm-a" href="index.html" aria-label="Avi Sahni, home"><img class="wordmark" src="img/wordmark.png" width="2000" height="515" alt="Avi Sahni"></a>
   <p class="role">Graphic Designer</p>
   <p class="tagline">Branding, Typography &amp; Creative Coding</p>
-  <p class="contact"><a href="mailto:hello@avisahni.design" aria-label="Email hello@avisahni.design"><b>(M)</b></a><br><a href="https://www.instagram.com/avisahni.design/" rel="noopener" aria-label="Instagram @avisahni.design"><b>(IG)</b></a></p>
+  <p class="contact"><a href="mailto:hello@avisahni.design">hello@avisahni.design</a><br><a href="https://www.instagram.com/avisahni.design/" rel="noopener">avisahni.design</a></p>
   {top_link}
 </header>
 <main>
