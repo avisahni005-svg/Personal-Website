@@ -24,6 +24,7 @@ PROFILE = [
 ]
 
 MISSING = set()
+MEDIA_V = "2"
 
 def _ver(path):
     import hashlib
@@ -582,6 +583,9 @@ def main():
     out = {"index.html": build_home(), "about.html": build_about()}
     for slug in PAGES:
         out[f"{slug}.html"] = build_project(slug)
+    # media files are cached for a year, so a changed file needs a new URL: bump MEDIA_V when re-encoding any image or video
+    for name in out:
+        out[name] = re.sub(r"(media/[^\"' ,)&<]+\.(?:webp|mp4|jpg|jpeg|png))", r"\1?v=" + MEDIA_V, out[name])
     for name, text in out.items():
         open(os.path.join(ROOT, "public", name), "w", encoding="utf8").write(text)
     print("wrote", ", ".join(out))
