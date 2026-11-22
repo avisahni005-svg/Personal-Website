@@ -94,11 +94,8 @@ def shell(title, body, *, kind, current=None, extra_cls="", desc="Avi Sahni — 
     profile = ""
     if kind != "about":
         profile = f'''
-    <div class="side-photo">{media("ffea1552-cc6b-43ba-bbca-f2bf9564a1c2", alt="Avi Sahni on set beside a film camera", eager="high", variant="side")}</div>
     <div class="side-row profile"><h3>Hi I'm Avi Sahni!</h3><div class="txt">{paras(PROFILE)}</div></div>'''
     side_preload = ""
-    if kind != "about":
-        side_preload = f'\n<link rel="preload" href="{pick("ffea1552-cc6b-43ba-bbca-f2bf9564a1c2", "side")["src"]}" as="image" fetchpriority="high">'
     return f'''<!doctype html>
 <html lang="en">
 <head>

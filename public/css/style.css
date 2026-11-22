@@ -130,7 +130,7 @@ h1, h2, h3, b, .role, .contact b, .contents nav a[aria-current], .entry .b, .pse
   column-gap: var(--gap);
   align-items: start;
 }
-.profile { margin-top: 1rem; }
+.profile { margin-top: 0; }
 .profile .txt p + p { text-indent: 1.1rem; }
 .contents { margin-top: var(--rule-above); }
 .contents h3, .contents nav { border-top: 1px solid var(--ink); padding-top: var(--rule-below); }
