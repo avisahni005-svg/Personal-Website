@@ -17,7 +17,7 @@
 
 :root {
   --ink: #232323;
-  --mute: #8d8d8d;
+  --mute: #232323;   /* was light grey #8d8d8d; captions, tags, footer and slideshow counters now use the body black */
   --yellow: #ffdd00;       /* the logo is #0022ff with an exclusion blend: 255 - (0,34,255) = #ffdd00 */
   --logo: #0022ff;
   /* ---- Type system: four styles, all in rem so browser zoom (Cmd +/-) scales every one of them ----
