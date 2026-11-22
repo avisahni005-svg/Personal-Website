@@ -175,7 +175,7 @@
 "src": "media/cargo/avi-portfolio.mp4",
 "w": 1280,
 "h": 840,
-"poster": "media/cargo/avi-portfolio-poster.jpg",
+"poster": "media/cargo/avi-portfolio-poster.webp",
 "poster_t": "media/cargo/avi-portfolio-poster-t.webp"
 },
 "avi-sahni-portfolio-dsc-0186": {
@@ -367,14 +367,14 @@
 "src": "media/cargo/badges.mp4",
 "w": 1280,
 "h": 1280,
-"poster": "media/cargo/badges-poster.jpg",
+"poster": "media/cargo/badges-poster.webp",
 "poster_t": "media/cargo/badges-poster-t.webp"
 },
 "cities": {
 "src": "media/cargo/cities.mp4",
 "w": 1280,
 "h": 1280,
-"poster": "media/cargo/cities-poster.jpg",
+"poster": "media/cargo/cities-poster.webp",
 "poster_t": "media/cargo/cities-poster-t.webp"
 },
 "dekho-magr-pyaar-se-1": {
@@ -581,14 +581,14 @@
 "src": "media/cargo/freight-cargo-video.mp4",
 "w": 1200,
 "h": 1800,
-"poster": "media/cargo/freight-cargo-video-poster.jpg",
+"poster": "media/cargo/freight-cargo-video-poster.webp",
 "poster_t": "media/cargo/freight-cargo-video-poster-t.webp"
 },
 "freight-video-8": {
 "src": "media/cargo/freight-video-8.mp4",
 "w": 1280,
 "h": 1280,
-"poster": "media/cargo/freight-video-8-poster.jpg",
+"poster": "media/cargo/freight-video-8-poster.webp",
 "poster_t": "media/cargo/freight-video-8-poster-t.webp"
 },
 "gravity-cardboard-boxes-mockup": {
@@ -745,14 +745,14 @@
 "src": "media/cargo/mp2-video.mp4",
 "w": 1200,
 "h": 1800,
-"poster": "media/cargo/mp2-video-poster.jpg",
+"poster": "media/cargo/mp2-video-poster.webp",
 "poster_t": "media/cargo/mp2-video-poster-t.webp"
 },
 "motion-video": {
 "src": "media/cargo/motion-video.mp4",
 "w": 1280,
 "h": 1280,
-"poster": "media/cargo/motion-video-poster.jpg",
+"poster": "media/cargo/motion-video-poster.webp",
 "poster_t": "media/cargo/motion-video-poster-t.webp"
 },
 "new-wave-poster-copy-01": {
@@ -1385,7 +1385,7 @@
 "src": "media/cargo/typographic.mp4",
 "w": 1280,
 "h": 1280,
-"poster": "media/cargo/typographic-poster.jpg",
+"poster": "media/cargo/typographic-poster.webp",
 "poster_t": "media/cargo/typographic-poster-t.webp"
 },
 "untitled-19": {
@@ -2012,7 +2012,7 @@
 "src": "media/dekho/mp3.mp4",
 "w": 1200,
 "h": 1800,
-"poster": "media/dekho/mp3-poster.jpg",
+"poster": "media/dekho/mp3-poster.webp",
 "poster_t": "media/dekho/mp3-poster-t.webp"
 },
 "dekho-mp1": {
@@ -2174,7 +2174,7 @@
 "src": "media/playground/avisahni-no-freeze-by-aphonik.mp4",
 "w": 1280,
 "h": 1922,
-"poster": "media/playground/avisahni-no-freeze-by-aphonik-poster.jpg",
+"poster": "media/playground/avisahni-no-freeze-by-aphonik-poster.webp",
 "poster_t": "media/playground/avisahni-no-freeze-by-aphonik-poster-t.webp"
 },
 "playground-img-0312": {
