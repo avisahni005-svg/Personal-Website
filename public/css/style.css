@@ -25,14 +25,14 @@
      subhead   same size as text, bold
      caption   20% smaller than text
      heading   large display size (10% smaller than the first version), bold */
-  --fs-base: 16.25px;   /* body 16.25px, captions 0.8x = 13px: the smallest size that keeps the ratios and meets the grading minimums */
+  --fs-base: 13.266px;
   --fs-text: 1rem;
   --fs-sub: 1rem;
   --fs-cap: .8rem;
   --fs-head: 3.8727rem;
   --fw-text: 340;
   --fw-bold: 700;
-  --lh-text: 1.166;   /* 10% looser than the original 1.06 */
+  --lh-text: 1.06;
   /* Rule spacing, used everywhere a rule appears: text under a rule sits close, text above it sits a little further away */
   --rule-below: .85rem;
   --rule-above: 1.4rem;
@@ -46,6 +46,7 @@
 }
 
 /* Base text size follows the window in coarse steps, so Cmd +/- still scales it proportionally */
+@media (max-width: 999px)  { :root { --fs-base: 12.375px; } }
 @media (min-width: 1700px) { :root { --fs-base: 16.83px; } }
 @media (min-width: 2100px) { :root { --fs-base: 20.79px; } }
 @media (min-width: 2600px) { :root { --fs-base: 25.74px; } }
@@ -90,7 +91,7 @@ h1, h2, h3, b, .role, .contact b, .contents nav a[aria-current], .entry .b, .pse
   --wm-top: 2.8vw;
   --wm-w: 32vw;
   --wm-h: calc(var(--wm-w) * 515 / 2000);   /* wordmark.png is 2000 x 515 */
-  --gap-logo: 18px;                         /* optical gap between the logo and the text above / below it */
+  --gap-logo: 1.364rem;                         /* optical gap between the logo and the text above / below it */
 }
 .home .mast { --wm-w: 65vw; }
 .wordmark {
@@ -246,7 +247,7 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
 
 /* ------------------------------------------------------------------ narrow screens */
 @media (max-width: 720px) {
-  :root { --fs-base: 16.25px; --fs-head: 3.0909rem; --m: 12px; }
+  :root { --fs-base: 13.86px; --fs-head: 3.0909rem; --m: 12px; }
   /* Header on phones: the logo sticks to the top; the lines under it scroll away with the page (no jump).
      The same exclusion overlay as desktop: nothing has a background, so the page inverts under the logo and text. */
   .mast { display: contents; }
@@ -372,8 +373,8 @@ hr.sep { border: 0; border-top: 1px solid var(--ink); width: 100%; margin: var(-
 @media (min-width: 721px) {
   html:has(body.pg), body.pg { height: 100%; overflow: hidden; }
   body.pg main { height: 100vh; min-height: 0; }
-  body.pg .title-gap { height: calc(2.8vw + 32vw * 515 / 2000 + 18px); flex: none; }   /* logo bottom + the same gap used elsewhere */
-  body.pg .ptitle { margin-bottom: var(--rule-below); }
+  body.pg .title-gap { height: calc(2.8vw + 32vw * 515 / 2000 + 1.364rem); flex: none; }   /* logo bottom + the same gap used elsewhere */
+  body.pg .ptitle { margin-bottom: var(--rule-below); white-space: nowrap; }
   body.pg .rule { margin-bottom: 0; }
   body.pg .foot { margin-top: 0; padding-top: var(--rule-below); }
   body.pg .foot .top { display: none; }
