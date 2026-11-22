@@ -284,7 +284,7 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
     position: static; width: 100%; height: auto; padding: 0 var(--m) 40px; overflow: visible;
   }
   .side-photo { margin-bottom: 12px; }
-  .side-row { grid-template-columns: 90px 1fr; }
+  .side-row { grid-template-columns: 8.6rem 1fr; }
   .about .side { padding-top: 0; }
 }
 
