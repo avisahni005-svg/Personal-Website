@@ -1,8 +1,6 @@
-diff --git a/public/css/style.css b/public/css/style.css
-index c6eb530..af3a01a 100644
 --- a/public/css/style.css
 +++ b/public/css/style.css
-@@ -25,7 +25,7 @@
+@@ -25,14 +25,14 @@
       subhead   same size as text, bold
       caption   20% smaller than text
       heading   large display size (10% smaller than the first version), bold */
@@ -11,6 +9,14 @@ index c6eb530..af3a01a 100644
    --fs-text: 1rem;
    --fs-sub: 1rem;
    --fs-cap: .8rem;
+   --fs-head: 3.8727rem;
+   --fw-text: 340;
+   --fw-bold: 700;
+-  --lh-text: 1.166;   /* 10% looser than the original 1.06 */
++  --lh-text: 1.06;
+   /* Rule spacing, used everywhere a rule appears: text under a rule sits close, text above it sits a little further away */
+   --rule-below: .85rem;
+   --rule-above: 1.4rem;
 @@ -46,6 +46,7 @@
  }
  
@@ -19,7 +25,7 @@ index c6eb530..af3a01a 100644
  @media (min-width: 1700px) { :root { --fs-base: 16.83px; } }
  @media (min-width: 2100px) { :root { --fs-base: 20.79px; } }
  @media (min-width: 2600px) { :root { --fs-base: 25.74px; } }
-@@ -90,7 +91,7 @@ h1, h2, h3, b, .role, .contact b, .contents nav a[aria-current], .entry .b, .pse
+@@ -90,7 +91,7 @@
    --wm-top: 2.8vw;
    --wm-w: 32vw;
    --wm-h: calc(var(--wm-w) * 515 / 2000);   /* wordmark.png is 2000 x 515 */
@@ -28,7 +34,7 @@ index c6eb530..af3a01a 100644
  }
  .home .mast { --wm-w: 65vw; }
  .wordmark {
-@@ -246,7 +247,7 @@ main { margin-left: var(--m); width: calc(var(--c1) + var(--c2) + var(--c3)); mi
+@@ -246,7 +247,7 @@
  
  /* ------------------------------------------------------------------ narrow screens */
  @media (max-width: 720px) {
@@ -37,7 +43,7 @@ index c6eb530..af3a01a 100644
    /* Header on phones: the logo sticks to the top; the lines under it scroll away with the page (no jump).
       The same exclusion overlay as desktop: nothing has a background, so the page inverts under the logo and text. */
    .mast { display: contents; }
-@@ -372,8 +373,8 @@ hr.sep { border: 0; border-top: 1px solid var(--ink); width: 100%; margin: var(-
+@@ -372,8 +373,8 @@
  @media (min-width: 721px) {
    html:has(body.pg), body.pg { height: 100%; overflow: hidden; }
    body.pg main { height: 100vh; min-height: 0; }

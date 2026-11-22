@@ -32,7 +32,7 @@
   --fs-head: 3.8727rem;
   --fw-text: 340;
   --fw-bold: 700;
-  --lh-text: 1.06;
+  --lh-text: 1.166;   /* 10% looser than the original 1.06 */
   /* Rule spacing, used everywhere a rule appears: text under a rule sits close, text above it sits a little further away */
   --rule-below: .85rem;
   --rule-above: 1.4rem;
