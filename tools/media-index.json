@@ -175,7 +175,7 @@
 "src": "media/cargo/avi-portfolio.mp4",
 "w": 1280,
 "h": 840,
-"poster": "media/cargo/avi-portfolio-poster.jpg",
+"poster": "media/cargo/avi-portfolio-poster.webp",
 "poster_t": "media/cargo/avi-portfolio-poster-t.webp"
 },
 "avi-sahni-portfolio-dsc-0186": {
@@ -367,14 +367,14 @@
 "src": "media/cargo/badges.mp4",
 "w": 1280,
 "h": 1280,
-"poster": "media/cargo/badges-poster.jpg",
+"poster": "media/cargo/badges-poster.webp",
 "poster_t": "media/cargo/badges-poster-t.webp"
 },
 "cities": {
 "src": "media/cargo/cities.mp4",
 "w": 1280,
 "h": 1280,
-"poster": "media/cargo/cities-poster.jpg",
+"poster": "media/cargo/cities-poster.webp",
 "poster_t": "media/cargo/cities-poster-t.webp"
 },
 "dekho-magr-pyaar-se-1": {
@@ -579,16 +579,16 @@
 },
 "freight-cargo-video": {
 "src": "media/cargo/freight-cargo-video.mp4",
-"w": 1200,
-"h": 1800,
-"poster": "media/cargo/freight-cargo-video-poster.jpg",
+"w": 540,
+"h": 810,
+"poster": "media/cargo/freight-cargo-video-poster.webp",
 "poster_t": "media/cargo/freight-cargo-video-poster-t.webp"
 },
 "freight-video-8": {
 "src": "media/cargo/freight-video-8.mp4",
 "w": 1280,
 "h": 1280,
-"poster": "media/cargo/freight-video-8-poster.jpg",
+"poster": "media/cargo/freight-video-8-poster.webp",
 "poster_t": "media/cargo/freight-video-8-poster-t.webp"
 },
 "gravity-cardboard-boxes-mockup": {
@@ -743,16 +743,16 @@
 },
 "mp2-video": {
 "src": "media/cargo/mp2-video.mp4",
-"w": 1200,
-"h": 1800,
-"poster": "media/cargo/mp2-video-poster.jpg",
+"w": 540,
+"h": 810,
+"poster": "media/cargo/mp2-video-poster.webp",
 "poster_t": "media/cargo/mp2-video-poster-t.webp"
 },
 "motion-video": {
 "src": "media/cargo/motion-video.mp4",
 "w": 1280,
 "h": 1280,
-"poster": "media/cargo/motion-video-poster.jpg",
+"poster": "media/cargo/motion-video-poster.webp",
 "poster_t": "media/cargo/motion-video-poster-t.webp"
 },
 "new-wave-poster-copy-01": {
@@ -1385,7 +1385,7 @@
 "src": "media/cargo/typographic.mp4",
 "w": 1280,
 "h": 1280,
-"poster": "media/cargo/typographic-poster.jpg",
+"poster": "media/cargo/typographic-poster.webp",
 "poster_t": "media/cargo/typographic-poster-t.webp"
 },
 "untitled-19": {
@@ -2010,9 +2010,9 @@
 },
 "dekho-mp3-video": {
 "src": "media/dekho/mp3.mp4",
-"w": 1200,
-"h": 1800,
-"poster": "media/dekho/mp3-poster.jpg",
+"w": 540,
+"h": 810,
+"poster": "media/dekho/mp3-poster.webp",
 "poster_t": "media/dekho/mp3-poster-t.webp"
 },
 "dekho-mp1": {
@@ -2172,9 +2172,9 @@
 },
 "aphonik-video": {
 "src": "media/playground/avisahni-no-freeze-by-aphonik.mp4",
-"w": 1280,
-"h": 1922,
-"poster": "media/playground/avisahni-no-freeze-by-aphonik-poster.jpg",
+"w": 540,
+"h": 812,
+"poster": "media/playground/avisahni-no-freeze-by-aphonik-poster.webp",
 "poster_t": "media/playground/avisahni-no-freeze-by-aphonik-poster-t.webp"
 },
 "playground-img-0312": {
@@ -6165,38 +6165,38 @@
 },
 "stfc-hero-video": {
 "src": "media/video/stfc-hero.mp4",
-"w": 1280,
-"h": 840,
+"w": 960,
+"h": 630,
 "poster": "media/video/stfc-hero-poster.webp",
 "poster_t": "media/video/stfc-hero-poster-t.webp"
 },
 "stfc-laptop-video": {
 "src": "media/video/stfc-laptop.mp4",
-"w": 720,
-"h": 406,
+"w": 640,
+"h": 360,
 "poster": "media/video/stfc-laptop-poster.webp",
 "poster_t": "media/video/stfc-laptop-poster-t.webp"
 },
 "hy-motion-1": {
 "src": "media/video/hy-motion-1.mp4",
-"w": 720,
-"h": 720,
+"w": 640,
+"h": 640,
 "poster": "media/video/hy-motion-1-poster.webp",
 "poster_t": "media/video/hy-motion-1-poster-t.webp",
 "audio": "media/video/hy-motion-1-audio.mp4"
 },
 "hy-motion-2": {
 "src": "media/video/hy-motion-2.mp4",
-"w": 1000,
-"h": 512,
+"w": 880,
+"h": 450,
 "poster": "media/video/hy-motion-2-poster.webp",
 "poster_t": "media/video/hy-motion-2-poster-t.webp",
 "audio": "media/video/hy-motion-2-audio.mp4"
 },
 "hy-code-demo": {
 "src": "media/video/hy-code-demo.mp4",
-"w": 1000,
-"h": 650,
+"w": 880,
+"h": 572,
 "poster": "media/video/hy-code-demo-poster.webp",
 "poster_t": "media/video/hy-code-demo-poster-t.webp",
 "audio": "media/video/hy-code-demo-audio.mp4"
@@ -6248,8 +6248,8 @@
 },
 "stfc-laptop-large": {
 "src": "media/video/stfc-laptop-large.mp4",
-"w": 1280,
-"h": 720,
+"w": 960,
+"h": 540,
 "poster": "media/video/stfc-laptop-large-poster.webp"
 },
 "stfc-poster-wall": {
@@ -6744,8 +6744,8 @@
 },
 "playground-p301-video": {
 "src": "media/playground/p301-video.mp4",
-"w": 1080,
-"h": 1350,
+"w": 900,
+"h": 1126,
 "poster": "media/playground/p301-video-poster.webp"
 }
 }
